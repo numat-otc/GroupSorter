@@ -10,23 +10,80 @@ AlphabetFound = False
 
 
 def TeamSort():
-    print("TEAM SORT FUNCTION")
+    while True:
+        #Account for errors
+        try:
+            #Get amount of teams
+            print("Sort {} people into how many teams?".format(len(ListPlayers)))
+            NumTeams = int(input("|> "))
+            #solve empty teams or errors
+            if (NumTeams>len(ListPlayers)):
+                print("Error, You entered a higher amount of teams than there is players")
+                print("Automatically changed {} teams to {} (maximum amount of teams)".format(NumTeams,len(ListPlayers)))
+                NumTeams=len(ListPlayers)
+                time.sleep(4)
+            elif (NumTeams<1):
+                print("Error, Cannot have {} teams.".format(NumTeams))
+                time.sleep(2)
+                break
 
+            #SORTING ALGORITHM
+            NameToTeamList=[]
+            AmtPerTeam=(len(ListPlayers)//NumTeams)
+            Remainder=(len(ListPlayers)-AmtPerTeam*NumTeams)
+            if (AmtPerTeam):
+                for i in range(0,len(ListPlayers)):
+                    while True:
+                        RandomTeam = randint(1,NumTeams)
+                        if (NameToTeamList.count(RandomTeam)==AmtPerTeam):
+                            continue
+                        else:
+                            NameToTeamList.append(RandomTeam)
+                            break
+            else:
+                uneven
 
-#If removing player desired (function 2)
+                    #for i in range(0,NumTeams):
+                    #print(NameToTeamList.count(i+1))
+            print(ListPlayers)
+            print(NameToTeamList)
+
+            #x=46
+            #y=6
+            #z=(x//y)
+            #print(z)
+            #remainder=(x-y*z)
+            #print(remainder)
+            #for i in range(1,):
+            #    randint(0,)
+            #print(len(ListPlayers)/NumTeams)
+            #print(ListPlayers)
+            #print(NameToTeamList)
+
+            #End (hold screen until reset/enter pressed)
+            input("\nPress ENTER to return. ")
+            break
+
+        #Error if integer not given
+        except ValueError:
+            print("Error, Please enter a valid number (e.g. '{}')".format(randint(2,7)))
+            time.sleep(2)
+            break
+
+# If removing player desired (function 2)
 def RemovePlayer(ListPlayers):
     os.system('cls')
-    print("_"*8)
+    print("_" * 8)
     print("Players: [{}]".format(len(ListPlayers)))
-    for i in range(0,len(ListPlayers)):
-        print("{}- {}".format(i+1,ListPlayers[i]))
-    print("_"*8)
+    for i in range(0, len(ListPlayers)):
+        print("{}- {}".format(i + 1, ListPlayers[i]))
+    print("_" * 8)
     while True:
         try:
             print("Which numbered player name would you like to delete?")
-            delete=int(input("|> "))
-            if (delete<=len(ListPlayers) and delete>0):
-                ListPlayers.pop(delete-1)
+            delete = int(input("|> "))
+            if delete <= len(ListPlayers) and delete > 0:
+                ListPlayers.pop(delete - 1)
             else:
                 print("Error, player {} does not exist.".format(delete))
                 time.sleep(2)
