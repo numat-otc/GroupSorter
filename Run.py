@@ -1,6 +1,6 @@
 import os
 import time
-from random import randint
+import random
 import string
 
 ListYesKey = ["y", "ye", "yes", "yo", "yea", "ya"]
@@ -17,54 +17,38 @@ def TeamSort():
             print("Sort {} people into how many teams?".format(len(ListPlayers)))
             NumTeams = int(input("|> "))
             # solve empty teams or errors
-            if (NumTeams > len(ListPlayers)):
+            if NumTeams > len(ListPlayers):
                 print("Error, You entered a higher amount of teams than there is players")
                 print("Automatically changed amount of teams to {} (maximum amount of teams)".format(len(ListPlayers)))
                 NumTeams = len(ListPlayers)
                 time.sleep(4)
-            elif (NumTeams < 1):
+            elif NumTeams < 1:
                 print("Error, Cannot have {} teams.".format(NumTeams))
                 time.sleep(2)
                 break
 
-            # SORTING ALGORITHM
+            # SORTING ALGORITHM 2.0
             NameToTeamList = []
             AmtPerTeam = (len(ListPlayers) // NumTeams)
             Remainder = (len(ListPlayers) - AmtPerTeam * NumTeams)
-            for i in range(0,1):
-                for i in range(0, len(ListPlayers)):
-                    while True:
-                        Random = randint(1, NumTeams)
-                        if (NameToTeamList.count(Random) != AmtPerTeam):
-                            NameToTeamList.append(Random)
-                            break
+            for i in range(0,AmtPerTeam):
+                for z in range(0,NumTeams):
+                    NameToTeamList.append(z+1)
+            for u in range(0,Remainder):
+                NameToTeamList.append(u+1)
 
+            # Shuffle Teams list 10 times
+            for i in range(0,10):
+                random.shuffle(NameToTeamList)
 
-
-                # for i in range(0,NumTeams):
-                # print(NameToTeamList.count(i+1))
             print(ListPlayers)
             print(NameToTeamList)
-
-            # x=46
-            # y=6
-            # z=(x//y)
-            # print(z)
-            # remainder=(x-y*z)
-            # print(remainder)
-            # for i in range(1,):
-            #    randint(0,)
-            # print(len(ListPlayers)/NumTeams)
-            # print(ListPlayers)
-            # print(NameToTeamList)
-
-            # End (hold screen until reset/enter pressed)
             input("\nPress ENTER to return. ")
             break
 
         # Error if integer not given
         except ValueError:
-            print("Error, Please enter a valid number (e.g. '{}')".format(randint(2, 7)))
+            print("Error, Please enter a valid number (e.g. '{}')".format(random.randint(2, 7)))
             time.sleep(2)
             break
 
