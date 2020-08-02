@@ -19,8 +19,7 @@ def TeamSort():
             # solve empty teams or errors
             if (NumTeams > len(ListPlayers)):
                 print("Error, You entered a higher amount of teams than there is players")
-                print(
-                    "Automatically changed {} teams to {} (maximum amount of teams)".format(NumTeams, len(ListPlayers)))
+                print("Automatically changed amount of teams to {} (maximum amount of teams)".format(len(ListPlayers)))
                 NumTeams = len(ListPlayers)
                 time.sleep(4)
             elif (NumTeams < 1):
@@ -32,17 +31,15 @@ def TeamSort():
             NameToTeamList = []
             AmtPerTeam = (len(ListPlayers) // NumTeams)
             Remainder = (len(ListPlayers) - AmtPerTeam * NumTeams)
-            if (AmtPerTeam):
+            for i in range(0,1):
                 for i in range(0, len(ListPlayers)):
                     while True:
-                        RandomTeam = randint(1, NumTeams)
-                        if (NameToTeamList.count(RandomTeam) == AmtPerTeam):
-                            continue
-                        else:
-                            NameToTeamList.append(RandomTeam)
+                        Random = randint(1, NumTeams)
+                        if (NameToTeamList.count(Random) != AmtPerTeam):
+                            NameToTeamList.append(Random)
                             break
-            else:
-                uneven
+
+
 
                 # for i in range(0,NumTeams):
                 # print(NameToTeamList.count(i+1))
@@ -87,7 +84,7 @@ def RemovePlayer(ListPlayers):
             if delete <= len(ListPlayers) and delete > 0:
                 ListPlayers.pop(delete - 1)
             else:
-                print("Error, player {} does not exist.".format(delete))
+                print("Error, name {} does not exist.".format(delete))
                 time.sleep(2)
             break
         except ValueError:
