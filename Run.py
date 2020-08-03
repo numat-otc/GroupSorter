@@ -47,10 +47,12 @@ def TeamSort():
             # Display Teams and corresponding players
             os.system('cls')
             for i in range(0, NumTeams):
-                print("\nTeam {}:".format(i + 1))
+                print("_"*8)
+                print("Team {}: ({})".format(i + 1, NameToTeamList.count(i+1)))
                 for p in range(0, len(NameToTeamList)):
                     if NameToTeamList[p]==i+1:
                         print(ListPlayers[p])
+            print("_"*8)
 
             # End of TeamSort, press ENTER to go back to main screen
             input("\nPress ENTER to return. ")
