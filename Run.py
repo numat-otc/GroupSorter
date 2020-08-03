@@ -10,6 +10,7 @@ AlphabetFound = False
 
 
 def TeamSort():
+    global p
     while True:
         # Account for errors
         try:
@@ -31,18 +32,25 @@ def TeamSort():
             NameToTeamList = []
             AmtPerTeam = (len(ListPlayers) // NumTeams)
             Remainder = (len(ListPlayers) - AmtPerTeam * NumTeams)
-            for i in range(0,AmtPerTeam):
-                for z in range(0,NumTeams):
-                    NameToTeamList.append(z+1)
-            for u in range(0,Remainder):
-                NameToTeamList.append(u+1)
+            for i in range(0, AmtPerTeam):
+                for z in range(0, NumTeams):
+                    NameToTeamList.append(z + 1)
+            for u in range(0, Remainder):
+                NameToTeamList.append(u + 1)
 
             # Shuffle Teams list 10 times
-            for i in range(0,10):
+            for i in range(0, 10):
                 random.shuffle(NameToTeamList)
 
-            print(ListPlayers)
-            print(NameToTeamList)
+            # Display Teams and corresponding players
+            os.system('cls')
+            for i in range(0, NumTeams):
+                print("\nTeam {}:".format(i + 1))
+                for p in range(0, len(NameToTeamList)):
+                    if NameToTeamList[p]==i+1:
+                        print(ListPlayers[p])
+
+            # End of TeamSort, press ENTER to go back to main screen
             input("\nPress ENTER to return. ")
             break
 
