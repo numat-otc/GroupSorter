@@ -4,7 +4,7 @@ import random
 import string
 
 ListYesKey = ["y", "ye", "yes", "yo", "yea", "ya"]
-LowerAlphabet = list(string.ascii_lowercase)
+LowerCaseAlphabet = list(string.ascii_lowercase)
 ListPlayers = []
 AlphabetFound = False
 
@@ -32,9 +32,11 @@ def TeamSort():
             NameToTeamList = []
             AmtPerTeam = (len(ListPlayers) // NumTeams)
             Remainder = (len(ListPlayers) - AmtPerTeam * NumTeams)
+            # Add sufficient base amounts of team numbers into NameToTeamList
             for i in range(0, AmtPerTeam):
                 for z in range(0, NumTeams):
                     NameToTeamList.append(z + 1)
+            # Add remaining amount of team numbers to NameToTeamList
             for u in range(0, Remainder):
                 NameToTeamList.append(u + 1)
 
@@ -96,18 +98,18 @@ while True:
         print(ListPlayers[i])
     # Separate sections
     print("_" * 8)
-    print("Type a name and press enter to add a player to sort.")
+    print("> type a name and press enter to add a player to the list")
     if len(ListPlayers) > 0:
-        print("OR type SORT to generate teams")
-        print("OR type CLEAR to delete all player names")
-        print("OR type REMOVE to delete a specific player")
+        print("> type SORT to generate teams")
+        print("> type CLEAR to delete all player names")
+        print("> type REMOVE to delete a specific player")
     addplayer = str(input("|> "))
 
     # Check to see if an actual name is input
     # (or at least english alphabet characters)
     # So that keeping track of names is easier, also avoid printing errors and such
     for i in range(0, 26):
-        if LowerAlphabet[i] in addplayer.lower():
+        if LowerCaseAlphabet[i] in addplayer.lower():
             AlphabetFound = True
     # if name is valid:
     if AlphabetFound is True:
