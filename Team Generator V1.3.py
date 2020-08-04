@@ -3,7 +3,7 @@ import time
 import random
 import string
 
-Version = 1.2
+Version = 1.3
 # Set the window title bar name
 os.system("title Team Generator V{} - A project by Trey".format(Version))
 ListYesKey = ["y", "ye", "yes", "yo", "yea", "ya"]
@@ -16,11 +16,16 @@ def TeamSort():
     # Set the window title bar name
     os.system("title Team Generator V{} - Sorting {} players into teams".format(Version,len(ListPlayers)))
     while True:
+        # Get amount of teams
+        print("> Type the number of teams you would like to sort {} people into ".format(len(ListPlayers)))
+        print("> Type 'cancel' to go back to the main screen")
+        NumTeams = (input("|> "))
+        if NumTeams.lower() == "cancel" or NumTeams.lower() == "":
+            break
         # Account for errors
         try:
-            # Get amount of teams
-            print("Sort {} people into how many teams?".format(len(ListPlayers)))
-            NumTeams = int(input("|> "))
+            # Try to make NumTeams an integer
+            NumTeams = int(NumTeams)
             # solve empty teams or errors
             if NumTeams > len(ListPlayers):
                 print("Error; You entered a higher amount of teams than there is players")
@@ -36,7 +41,7 @@ def TeamSort():
                 break
 
             # SORTING ALGORITHM 2.0
-            os.system("title Team Generator V{} - Sorting...".format(Version))
+            os.system("title Team Generator V{} - Sorting...".format(Version)) #say sorting, user will only see if the sorting is taking extra long
             NameToTeamList = []
             AmtPerTeam = (len(ListPlayers) // NumTeams)
             Remainder = (len(ListPlayers) - AmtPerTeam * NumTeams)
@@ -84,9 +89,13 @@ def RemovePlayer(ListPlayers, ListPlayersLOWER):
     print("_" * 8)
 
     # Which name or name order number would you like to delete sequence
-    print("Which numbered player name would you like to delete?")
+    print("> Type a number that corresponds to a player that you would you like to delete")
+    print("> Type a name of a player that you would like to delete")
+    print("> Type 'cancel' to go back to the main screen")
     delete = (input("|> "))
-    if delete.lower() in ListPlayersLOWER:
+    if (delete.lower() == "cancel" or delete.lower() == ""):
+        pass
+    elif delete.lower() in ListPlayersLOWER:
         for i in range(0, len(ListPlayers)):
             if delete.lower() in ListPlayersLOWER[i]:
                 ListPlayers.pop(i)
@@ -171,7 +180,12 @@ while True:
             print("Please enter 24 or less characters.")
             time.sleep(2)
 
-        # Additional commands that arent required or as useful
+        # Disallow 'cancel' to be added to the player list
+        elif addplayer == "cancel":
+            print("Error; Cannot enter name cancel")
+            time.sleep(2)
+
+        # Additional commands that aren't required or as useful
 
         # Delete last player name
         elif addplayer.lower() == "dellast":
@@ -192,8 +206,8 @@ while True:
                 print("Unable to delete first position")
                 time.sleep(1)
         elif addplayer.lower() == "preset1":
-            ADDPRESET = ["Trey", "Pedro", "Dom", "Alex", "Sam", "Gref", "David", "Ben", "Finn", "Connor", "Griffin",
-                         "Luka", "Tyrone", "Erik"]
+            ADDPRESET = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11",
+                         "12", "13", "14"]
             ListPlayers.extend(ADDPRESET)
         elif addplayer.lower() == "shutdown":
             os.system('shutdown /sg /c "Your computer will shutdown in 10 seconds" /t 10')
