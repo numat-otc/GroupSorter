@@ -130,8 +130,13 @@ while True:
         ListPlayersLOWER = list(map(lambda x: x.lower(), ListPlayers))
         # Check if wanting to sort
         if addplayer.lower() == "sort":
-            # call sorting function
-            TeamSort()
+            # Only sort if there are 2 or more names
+            if len(ListPlayers) > 1:
+                # call sorting function
+                TeamSort()
+            else:
+                print("Error; There are not enough players to sort.")
+                time.sleep(2)
 
         # Check if wanting to clear
         elif addplayer.lower() == "clear":
