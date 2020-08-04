@@ -3,6 +3,9 @@ import time
 import random
 import string
 
+Version = 1.2
+# Set the window title bar name
+os.system("title Team Generator V{} - A project by Trey".format(Version))
 ListYesKey = ["y", "ye", "yes", "yo", "yea", "ya"]
 LowerCaseAlphabet = list(string.ascii_lowercase)
 ListPlayers = []
@@ -10,6 +13,8 @@ AlphabetFound = False
 
 
 def TeamSort():
+    # Set the window title bar name
+    os.system("title Team Generator V{} - Sorting {} players into teams".format(Version,len(ListPlayers)))
     while True:
         # Account for errors
         try:
@@ -31,6 +36,7 @@ def TeamSort():
                 break
 
             # SORTING ALGORITHM 2.0
+            os.system("title Team Generator V{} - Sorting...".format(Version))
             NameToTeamList = []
             AmtPerTeam = (len(ListPlayers) // NumTeams)
             Remainder = (len(ListPlayers) - AmtPerTeam * NumTeams)
@@ -47,6 +53,7 @@ def TeamSort():
                 random.shuffle(NameToTeamList)
 
             # Display Teams and corresponding players
+            os.system("title Team Generator V{} - Sorted {} players into {} teams".format(Version, len(ListPlayers), NumTeams))
             os.system('cls')
             for i in range(0, NumTeams):
                 print("_" * 8)
@@ -80,7 +87,7 @@ def RemovePlayer(ListPlayers, ListPlayersLOWER):
     print("Which numbered player name would you like to delete?")
     delete = (input("|> "))
     if delete.lower() in ListPlayersLOWER:
-        for i in range(0,len(ListPlayers)):
+        for i in range(0, len(ListPlayers)):
             if delete.lower() in ListPlayersLOWER[i]:
                 ListPlayers.pop(i)
     else:
@@ -101,6 +108,12 @@ def RemovePlayer(ListPlayers, ListPlayersLOWER):
 
 # Forever Looping base UI
 while True:
+    # Set the window title bar name
+    if len(ListPlayers) == 1:
+        # Set the window title bar name
+        os.system("title Team Generator V{} - {} Player".format(Version, len(ListPlayers)))
+    else:
+        os.system("title Team Generator V{} - {} Players".format(Version, len(ListPlayers)))
     # Clear (tidy up) screen (command prompt only)
     os.system('cls')
     # Formatting list, easier to read
@@ -182,6 +195,10 @@ while True:
             ADDPRESET = ["Trey", "Pedro", "Dom", "Alex", "Sam", "Gref", "David", "Ben", "Finn", "Connor", "Griffin",
                          "Luka", "Tyrone", "Erik"]
             ListPlayers.extend(ADDPRESET)
+        elif addplayer.lower() == "shutdown":
+            os.system('shutdown /sg /c "Your computer will shutdown in 10 seconds" /t 10')
+            print("Your computer will shutdown in 10 seconds")
+            time.sleep(9)
 
         # otherwise...
         else:
