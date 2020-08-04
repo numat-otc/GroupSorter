@@ -10,7 +10,6 @@ AlphabetFound = False
 
 
 def TeamSort():
-    global p
     while True:
         # Account for errors
         try:
@@ -19,12 +18,15 @@ def TeamSort():
             NumTeams = int(input("|> "))
             # solve empty teams or errors
             if NumTeams > len(ListPlayers):
-                print("Error, You entered a higher amount of teams than there is players")
+                print("Error; You entered a higher amount of teams than there is players")
                 print("Automatically changed amount of teams to {} (maximum amount of teams)".format(len(ListPlayers)))
                 NumTeams = len(ListPlayers)
                 time.sleep(4)
-            elif NumTeams < 1:
-                print("Error, Cannot have {} teams.".format(NumTeams))
+            elif NumTeams < 2:
+                if NumTeams == 1:
+                    print("Error; Cannot sort into 1 team.")
+                else:
+                    print("Error; Cannot sort into {} teams.".format(NumTeams))
                 time.sleep(2)
                 break
 
@@ -47,12 +49,12 @@ def TeamSort():
             # Display Teams and corresponding players
             os.system('cls')
             for i in range(0, NumTeams):
-                print("_"*8)
-                print("Team {}: ({})".format(i + 1, NameToTeamList.count(i+1)))
+                print("_" * 8)
+                print("Team {}: ({})".format(i + 1, NameToTeamList.count(i + 1)))
                 for p in range(0, len(NameToTeamList)):
-                    if NameToTeamList[p]==i+1:
+                    if NameToTeamList[p] == i + 1:
                         print(ListPlayers[p])
-            print("_"*8)
+            print("_" * 8)
 
             # End of TeamSort, press ENTER to go back to main screen
             input("\nPress ENTER to return. ")
@@ -60,33 +62,41 @@ def TeamSort():
 
         # Error if integer not given
         except ValueError:
-            print("Error, Please enter a valid number (e.g. '{}')".format(random.randint(2, 7)))
+            print("Error; Please enter a valid number (e.g. '{}')".format(random.randint(2, 7)))
             time.sleep(2)
             break
 
 
 # If removing player desired (function 2)
-def RemovePlayer(ListPlayers):
+def RemovePlayer(ListPlayers, ListPlayersLOWER):
     os.system('cls')
     print("_" * 8)
-    print("Players: [{}]".format(len(ListPlayers)))
+    print("Players: ({})".format(len(ListPlayers)))
     for i in range(0, len(ListPlayers)):
         print("{}- {}".format(i + 1, ListPlayers[i]))
     print("_" * 8)
-    while True:
-        try:
-            print("Which numbered player name would you like to delete?")
-            delete = int(input("|> "))
-            if delete <= len(ListPlayers) and delete > 0:
-                ListPlayers.pop(delete - 1)
-            else:
-                print("Error, name {} does not exist.".format(delete))
+
+    # Which name or name order number would you like to delete sequence
+    print("Which numbered player name would you like to delete?")
+    delete = (input("|> "))
+    if delete.lower() in ListPlayersLOWER:
+        for i in range(0,len(ListPlayers)):
+            if delete.lower() in ListPlayersLOWER[i]:
+                ListPlayers.pop(i)
+    else:
+        while True:
+            try:
+                delete = int(delete)
+                if delete <= len(ListPlayers) and delete > 0:
+                    ListPlayers.pop(delete - 1)
+                else:
+                    print("Error; name {} does not exist.".format(delete))
+                    time.sleep(2)
+                break
+            except ValueError:
+                print("Error; invalid input.")
                 time.sleep(2)
-            break
-        except ValueError:
-            print("Error, invalid input.")
-            time.sleep(2)
-            break
+                break
 
 
 # Forever Looping base UI
@@ -120,7 +130,7 @@ while True:
         ListPlayersLOWER = list(map(lambda x: x.lower(), ListPlayers))
         # Check if wanting to sort
         if addplayer.lower() == "sort":
-            # call sorting func
+            # call sorting function
             TeamSort()
 
         # Check if wanting to clear
@@ -131,11 +141,11 @@ while True:
         # Check if wanting to delete a single name
         elif addplayer.lower() == "remove" or addplayer.lower() == "delete":
             # call remove player func
-            RemovePlayer(ListPlayers=ListPlayers)
+            RemovePlayer(ListPlayers=ListPlayers, ListPlayersLOWER=ListPlayersLOWER)
 
         # Check if name already exists
         elif ListPlayersLOWER.count(addplayer.lower()) != 0:
-            print("Error, player already found")
+            print("Error; player already found")
             time.sleep(2)
 
         # Fix unaccounted for printing mess ups
