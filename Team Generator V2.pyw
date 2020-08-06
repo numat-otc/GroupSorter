@@ -1,5 +1,21 @@
-# The start of something new...
-import tkinter
+import tkinter as tk
 
-# Next, transfer code from Team Generator V1.2 and implement a UI layer
-#...
+WINDOW = tk.Tk()
+
+
+def helloCallBack():
+    print("TBD")
+
+
+def addtextname():
+    print("bruh")
+
+
+exit = tk.Button(WINDOW, text="EXIT", fg="red", command=WINDOW.destroy)
+addplayer = tk.Button(WINDOW, text="ADD", command=addtextname())
+
+
+WINDOW.state('zoomed')
+exit.pack()
+addplayer.pack()
+WINDOW.mainloop()
