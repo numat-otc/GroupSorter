@@ -1,83 +1,77 @@
 # Library imports and variable setups
 from tkinter import *
 FullState = False
-
+FullScreenBool = FullState
 PlayerList = []
+AddPlayerRelX = 0.4
+SortPlayerRelX = 0.6
 
-WINDOW = Tk()
-WINDOW.title("Team Generator")
-Fullscreen = False
+WINDOW = Tk() # Set WINDOW as tkinter command name
+WINDOW.title("Team Generator") # Set title name
+MAXSIZE = WINDOW.maxsize() # Get maximum window size
+WINDOW.resizable(False, False); print("Screen Resolution:", MAXSIZE) # Disable window resizing (account for )
+FONT1 = 'Verdana®' # Easily changable font string
+WINDOW.geometry("1280x720") # Set window size to 720p (a good size for common 1080p monitors)
 
-# Easily changable font variable
-FONT1 = 'Verdana®'
 
-
-
-def FullscreenToggle(event):
+def FullscreenToggle(event,FullScreenBool):
     global FullState
-    FullState = not FullState  # Just toggling the bool
-    WINDOW.attributes("-fullscreen", FullState)
+    FullState = not FullState  # opposite bool
+    WINDOW.attributes("-fullscreen", FullState) # toggle fullscreen
+    FullScreenBool = FullState
+    SetToggleWindowXY(FullState=FullState)
 
-class FullScreenApp(object):
-    def __init__(self, master, **kwargs):
-        self.master=master
-        pad=3
-        self._geom='200x200+0+0'
-        master.geometry("{0}x{1}+0+0".format(
-            master.winfo_screenwidth()-pad, master.winfo_screenheight()-pad))
-        master.bind('<Escape>',self.toggle_geom)
-    def toggle_geom(self,event):
-        geom=self.master.winfo_geometry()
-        print(geom,self._geom)
-        self.master.geometry(self._geom)
-        self._geom=geom
+def SetToggleWindowXY(FullState):
+    global AddPlayerRelX; global SortPlayerRelX # Makes these vars available everywhere in code
+    if FullState is True:
+        AddPlayerRelX = 0.442
+        SortPlayerRelX = 0.558
+        print("True")
+    if FullState is False:
+        AddPlayerRelX = 0.4
+        SortPlayerRelX = 0.6
+        print("False")
+
 
 def sort():
     print("TBD")
 
 
 def addtextname():
-    AddPlayer = AddInput.get()
-
+    AddPlayer = Input.get()
+    #CODE!!!!!!
 
 def namesprintout():
     print("TBD")
 
+def back():
+    print("TBD")
 
-TitleLbl = Label(WINDOW, text="Team Generator!", fg='purple', bg='turquoise', font=('Verdana®', 60))
+
+TitleLbl = Label(WINDOW, text="Team Generator!", fg='purple', bg='turquoise', font=(FONT1, 60))
 TitleLbl.place(relx=0.5, anchor=N)
 
-exit = Button(WINDOW, text="X", fg="red", width=3, height=1, font=(FONT1, 18), activeforeground=('dark red'), command=WINDOW.destroy)
-exit.place(x=10, y=10, anchor=NW)
+Exit = Button(WINDOW, text="X", fg="red", width=3, height=1, font=(FONT1, 18), bg=("white"), activebackground=("white"), activeforeground=('dark red'), command=WINDOW.destroy)
+Exit.place(x=10, y=10, anchor=NW)
 
-togglezoom = Button(WINDOW, text="🢄", fg="chocolate1", width=3, height=1, font=(FONT1, 18), bg=("yellow"), activeforeground=('chocolate3'), command=lambda: FullscreenToggle("event"))
-togglezoom.place(x=70, y=10, anchor=NW)
+ToggleZoom = Button(WINDOW, text="☐", fg="chocolate1", width=3, height=1, font=(FONT1, 18), bg=("white"), activebackground=("white"), activeforeground=('chocolate2'), command=lambda: FullscreenToggle("event",FullScreenBool=FullScreenBool))
+ToggleZoom.place(x=70, y=10, anchor=NW)
 
-PlayersLbl = Label(WINDOW, text="z", fg='black', bg='yellow', font=('Verdana®', 60))
+PlayersLbl = Label(WINDOW, text="PLAYERS\n"+ str(PlayerList), fg='black', bg='white', font=('Verdana®', 32))
 PlayersLbl.place(relx=0.5, rely=0.2, anchor=N)
 
-AddInput = Entry(font=('Verdana®', 60))
-AddInput.place(relx=0.5, rely=0.75, anchor=CENTER)
+Input = Entry(font=('Verdana®', 48))
+Input.place(relx=0.5, rely=0.75, anchor=CENTER)
 
-addplayer = Button(WINDOW, text="ADD", fg="green", width=8, height=1, font=(FONT1, 32), activeforeground=('light green'), command=addtextname())
-addplayer.place(relx=0.442, rely=0.9, anchor=CENTER)
+AddPlayer = Button(WINDOW, text="ADD", fg="green", width=8, height=1, font=(FONT1, 32), activeforeground=('light green'), command=addtextname())
+AddPlayer.place(relx=AddPlayerRelX, rely=0.9, anchor=CENTER)
 
-sortplayer = Button(WINDOW, text="SORT", fg="orange", width=8, height=1, font=(FONT1, 32), activeforeground=('dark orange'), command=addtextname())
-sortplayer.place(relx=0.558, rely=0.9, anchor=CENTER)
+SortPlayers = Button(WINDOW, text="SORT", fg="orange", width=8, height=1, font=(FONT1, 32), activeforeground=('dark orange'), command=addtextname())
+SortPlayers.place(relx=SortPlayerRelX, rely=0.9, anchor=CENTER)
 
 
-# Get maximum window size
-MAXSIZE = WINDOW.maxsize()
-ResizeBool = False
-WINDOW.resizable(ResizeBool, ResizeBool)
-print(MAXSIZE)
 
+# Key bindings
 WINDOW.bind("<F11>", FullscreenToggle)
-
-
-
-WINDOW.geometry("1280x720")
-z = WINDOW.grab_status()
-print(z)
-# Fullscreen
+WINDOW.bind("<Escape>", back)
 WINDOW.mainloop()
