@@ -7,7 +7,7 @@ PlayerList = [FIRST]
 AddPlayerRelX = 0.49 # Default ADD button Rel X variable in windowed
 SortPlayerRelX = 0.51 # Default SORT button Rel X variable in windowed
 ScreenBottom = 0.90 # Lowest interface level Y variable
-Version = 2.1
+Version = 0.1
 
 ### TKINTER WINDOW & SETUP
 WINDOW = Tk()                   # Set WINDOW as tkinter command reference
