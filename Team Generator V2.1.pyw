@@ -146,6 +146,7 @@ AddPlayer.place(relx=AddPlayerRelX, rely=ScreenBottom, anchor=E)
 SortPlayers = Button(WINDOW, text="SORT", fg=("RoyalBlue2"), width=13, height=1, font=(FONT1, 36), activeforeground=('RoyalBlue4'), bg=(ButtonColour), border=(ButtonBorder), activebackground=(ButtonPressedColour), command=sort(PlayerList=PlayerList))
 SortPlayers.place(relx=SortPlayerRelX, rely=ScreenBottom, anchor=W)
 
+w = Scrollbar(WINDOW,)
 
 ### ADDITIONAL TKINTER SETUP AND KEY BINDINGS
 WINDOW.bind("<F11>", FullscreenToggle)
