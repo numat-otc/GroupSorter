@@ -17,7 +17,10 @@ def MainPage():
     AddTeamButton = Button(root, text="+", font = (DefFont + "Bold", 45), bg=DefBack, fg="forest green", bd=0, width=3, command = CreateTeam, height = 1, activeforeground="forest green", activebackground = DefBack); AddTeamButton.place(relx=0.4, rely=0.86, anchor = W)
     MinusTeamButton = Button(root, text="-", font = (DefFont + "Bold", 45), bg=DefBack, fg='orangered1', bd=0, width=3, command = DeleteTeam, height = 1, activeforeground="orangered1", activebackground = DefBack); MinusTeamButton.place(relx=0.45, rely=0.8575, anchor = W)
     RecentSorts = Label(root, text="0 Recent Sorts", font = (DefFont, 30), bg=DefBack, fg=DefFore); RecentSorts.place(relx=0.9, rely=0.88, anchor = CENTER)
+    ExportButton = Button(root, text="Export to .html", font = (DefFont, 24), bg=SecBack, fg='yellow', bd=0, command = SortTeams); ExportButton.place(relx=0.82, rely=0.79, anchor = NW)
 
+def Export():
+    print("Do Later")
 
 def AddNameEnter(Name):
     Name = Name[0: -1]
@@ -36,7 +39,7 @@ def AddName(Name):
     if len(NameList) == 10:
         return
 
-    if len(Name) < 3 or len(Name) > 10:
+    if len(Name) < 2 or len(Name) > 10:
         return
     try:
         NameList
@@ -133,7 +136,9 @@ def SortTeams():
 def CreateTeam():
     global TeamCount
     global NameList
-    if TeamCount > 5:
+    if TeamCount < 2:
+        pass
+    elif TeamCount == len(NameList):
         return
     TeamHorizontal = []
     TeamVertical = []
