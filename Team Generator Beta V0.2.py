@@ -1,5 +1,6 @@
 from tkinter import * # This imports the module that creates the interface
 import random # This imports the needed modules
+from tkinter import filedialog # Import file explorer functionality
 ##‽TREY‽NUMA‽##
 
 
@@ -8,6 +9,7 @@ def MainPage():
     global AddButton
     global NameList
     global RecentSorts
+
     AddNameEntry = Text(root, width = 14, font = (DefFont, 27), bg=SecBack, fg=SecFore, bd=0, height = 1); AddNameEntry.place(relx=0.02, rely=0.8, anchor = W)
     AddNameEntry.focus()
 
@@ -17,10 +19,10 @@ def MainPage():
     AddTeamButton = Button(root, text="+", font = (DefFont + "Bold", 45), bg=DefBack, fg="forest green", bd=0, width=3, command = CreateTeam, height = 1, activeforeground="forest green", activebackground = DefBack); AddTeamButton.place(relx=0.4, rely=0.86, anchor = W)
     MinusTeamButton = Button(root, text="-", font = (DefFont + "Bold", 45), bg=DefBack, fg='orangered1', bd=0, width=3, command = DeleteTeam, height = 1, activeforeground="orangered1", activebackground = DefBack); MinusTeamButton.place(relx=0.45, rely=0.8575, anchor = W)
     RecentSorts = Label(root, text="0 Recent Sorts", font = (DefFont, 30), bg=DefBack, fg=DefFore); RecentSorts.place(relx=0.9, rely=0.88, anchor = CENTER)
-    ExportButton = Button(root, text="Export to .html", font = (DefFont, 24), bg=SecBack, fg='yellow', bd=0, command = SortTeams); ExportButton.place(relx=0.82, rely=0.79, anchor = NW)
+    ExportButton = Button(root, text="Export to .html", font = (DefFont, 24), bg=SecBack, fg='yellow', bd=0, command = Export); ExportButton.place(relx=0.82, rely=0.79, anchor = NW)
 
 def Export():
-    print("Do Later")
+    savefile = filedialog.asksaveasfilename(initialdir = "%username%/desktop",title = "Select a File", filetypes = (("Text files", "*.txt"),("all files", "*.")))
 
 def AddNameEnter(Name):
     Name = Name[0: -1]
@@ -84,7 +86,6 @@ def RemovePlayer(i):
 
 def HighlightPlayerName(i):
     globals()["PlayerNameButton" + str(i)].config(fg="orangered1")
-
 def UnHighlightPlayerName(i):
     globals()["PlayerNameButton" + str(i)].config(fg=SecFore)
 
