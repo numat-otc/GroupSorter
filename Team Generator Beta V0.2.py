@@ -80,7 +80,10 @@ def CreateName(i):
 
 def RemovePlayer(i):
     global NameList
+    global TeamCount
     NameList.pop(i)
+    if len(NameList) > TeamCount:
+        DeleteTeam()
     DropDownPlayerList()
 
 
@@ -155,7 +158,7 @@ def CreateTeam():
 
 def DeleteTeam():
     global TeamCount
-    if TeamCount == 1:
+    if TeamCount == 2:
         return
     globals()["TeamLabel" + str(TeamCount - 1)].destroy()
     TeamCount -= 1
