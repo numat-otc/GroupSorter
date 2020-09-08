@@ -12,6 +12,37 @@ LowerCaseAlphabet = list(string.ascii_lowercase)
 ListPlayers = []
 AlphabetFound = False
 
+### Title Sequence
+Interval = 0.15
+commandlineprint = True
+for i in range(0,5):
+    print("  ______                                    ______                                       __                ")
+    time.sleep(Interval)
+    print(" /_  __/  ___   ____ _   ____ ___          / ____/  ___    ____   ___    _____  ____ _  / /_  ____    _____")
+    time.sleep(Interval)
+    print("  / /    / _ \ / __ `/  / __ `__ \        / / __   / _ \  / __ \ / _ \  / ___/ / __ `/ / __/ / __ \  / ___/")
+    time.sleep(Interval)
+    print(" / /    /  __// /_/ /  / / / / / /       / /_/ /  /  __/ / / / //  __/ / /    / /_/ / / /_  / /_/ / / /    ")
+    time.sleep(Interval)
+    print("/_/     \___/ \__,_/  /_/ /_/ /_/        \____/   \___/ /_/ /_/ \___/ /_/     \__,_/  \__/  \____/ /_/     ")
+    time.sleep(0.5)
+    if commandlineprint is True:
+        print("   ______                                                      __           __     _                ")
+        print("  / ____/  ____    ____ ___    ____ ___   ____ _   ____   ____/ /          / /    (_)   ____   ___  ")
+        print(" / /      / __ \  / __ `__ \  / __ `__ \ / __ `/  / __ \ / __  /          / /    / /   / __ \ / _ \ ")
+        print("/ /___   / /_/ / / / / / / / / / / / / // /_/ /  / / / // /_/ /          / /___ / /   / / / //  __/ ")
+        print("\____/   \____/ /_/ /_/ /_/ /_/ /_/ /_/ \__,_/  /_/ /_/ \__,_/          /_____//_/   /_/ /_/ \___/  ")
+    print("   ______                                                      __           __     _                          __")
+    print("  / ____/  ____    ____ ___    ____ ___   ____ _   ____   ____/ /          / /    (_)   ____   ___           / /")
+    print(" / /      / __ \  / __ `__ \  / __ `__ \ / __ `/  / __ \ / __  /          / /    / /   / __ \ / _ \         / / ")
+    print("/ /___   / /_/ / / / / / / / / / / / / // /_/ /  / / / // /_/ /          / /___ / /   / / / //  __/        / /  ")
+    print("\____/   \____/ /_/ /_/ /_/ /_/ /_/ /_/ \__,_/  /_/ /_/ \__,_/          /_____//_/   /_/ /_/ \___/        /_/   ")
+
+    time.sleep(1)
+    Interval = 0
+    commandlineprint = not commandlineprint
+    os.system("cls")
+time.sleep(1)
 
 def TeamSort():
     # Set the window title bar name
