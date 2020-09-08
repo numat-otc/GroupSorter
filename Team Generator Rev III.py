@@ -1,8 +1,8 @@
 from tkinter import * # This imports the module that creates the interface
 import random # This imports the needed modules
 from tkinter import filedialog # Import file explorer functionality
-VerType = "Beta "
-Version = 0.3
+VerType = "[Rev. III] "
+Version = "[V0.3]"
 ##‽TREY‽NUMA‽##
 
 
@@ -187,7 +187,7 @@ def Initialise():
    WINDOW = Tk() # This creats the initial window
    WINDOW.state("zoomed") # This starts it in zoom mode
    WINDOW.config(bg=DefBack) # This makes the background equal to the previously set up variable
-   WINDOW.title("Team Generator - Version {}{}".format(VerType,Version)) # This changes the title
+   WINDOW.title("Team Generator - {}{}".format(VerType,Version)) # This changes the title
    WINDOW.iconbitmap(bitmap="Team Generator Logo.ico")
    MainPage() # This actives the function that starts up the first page
 

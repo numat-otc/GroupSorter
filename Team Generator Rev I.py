@@ -3,9 +3,10 @@ import time
 import random
 import string
 
-Version = 1.3
+VerType = "[Rev. I] "
+Version = "[V1.3]"
 # Set the window title bar name
-os.system("title Team Generator V{} - A project by Trey".format(Version))
+os.system("title Team Generator {}{} - A project by Trey".format(VerType,Version))
 ListYesKey = ["y", "ye", "yes", "yo", "yea", "ya"]
 LowerCaseAlphabet = list(string.ascii_lowercase)
 ListPlayers = []
@@ -14,7 +15,7 @@ AlphabetFound = False
 
 def TeamSort():
     # Set the window title bar name
-    os.system("title Team Generator V{} - Sorting {} players into teams".format(Version,len(ListPlayers)))
+    os.system("title Team Generator {}{} - Sorting {} players into teams".format(VerType,Version,len(ListPlayers)))
     while True:
         # Get amount of teams
         print("> Type the number of teams you would like to sort {} people into ".format(len(ListPlayers)))
@@ -41,7 +42,7 @@ def TeamSort():
                 break
 
             # SORTING ALGORITHM 2.0
-            os.system("title Team Generator V{} - Sorting...".format(Version)) #say sorting, user will only see if the sorting is taking extra long
+            os.system("title Team Generator {}{} - Sorting...".format(VerType,Version)) #say sorting, user will only see if the sorting is taking extra long
             NameToTeamList = []
             AmtPerTeam = (len(ListPlayers) // NumTeams)
             Remainder = (len(ListPlayers) - AmtPerTeam * NumTeams)
@@ -58,7 +59,7 @@ def TeamSort():
                 random.shuffle(NameToTeamList)
 
             # Display Teams and corresponding players
-            os.system("title Team Generator V{} - Sorted {} players into {} teams".format(Version, len(ListPlayers), NumTeams))
+            os.system("title Team Generator {}{} - Sorted {} players into {} teams".format(VerType,Version, len(ListPlayers), NumTeams))
             os.system('cls')
             for i in range(0, NumTeams):
                 print("_" * 8)
@@ -120,9 +121,9 @@ while True:
     # Set the window title bar name
     if len(ListPlayers) == 1:
         # Set the window title bar name
-        os.system("title Team Generator V{} - {} Player".format(Version, len(ListPlayers)))
+        os.system("title Team Generator {}{} - {} Player".format(VerType,Version, len(ListPlayers)))
     else:
-        os.system("title Team Generator V{} - {} Players".format(Version, len(ListPlayers)))
+        os.system("title Team Generator {}{} - {} Players".format(VerType,Version, len(ListPlayers)))
     # Clear (tidy up) screen (command prompt only)
     os.system('cls')
     # Formatting list, easier to read
@@ -166,7 +167,7 @@ while True:
             ListPlayers.clear()
 
         # Check if wanting to delete a single name
-        elif addplayer.lower() == "remove" or addplayer.lower() == "delete":
+        elif "remove" in addplayer.lower() or "delete" in addplayer.lower():
             # call remove player func
             RemovePlayer(ListPlayers=ListPlayers, ListPlayersLOWER=ListPlayersLOWER)
 
@@ -205,9 +206,10 @@ while True:
             else:
                 print("Unable to delete first position")
                 time.sleep(1)
-        elif addplayer.lower() == "preset1":
-            ADDPRESET = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11",
-                         "12", "13", "14"]
+        elif "preset" in addplayer.lower():
+            ADDPRESET = ["1", "2", "3", "4", "5",
+                         "6", "7", "8", "9", "10",
+                         "11","12", "13", "14", "15"]
             ListPlayers.extend(ADDPRESET)
         elif addplayer.lower() == "shutdown":
             os.system('shutdown /sg /c "Your computer will shutdown in 10 seconds" /t 10')

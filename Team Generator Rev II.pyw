@@ -7,11 +7,16 @@ PlayerList = [FIRST]
 AddPlayerRelX = 0.49 # Default ADD button Rel X variable in windowed
 SortPlayerRelX = 0.51 # Default SORT button Rel X variable in windowed
 ScreenBottom = 0.90 # Lowest interface level Y variable
-Version = 0.1
+VerType = "[Rev. II] "
+Version = "[V0.0.9]"
+
+###############################
+##### CURRENTLY BROKEN!!! #####
+###############################
 
 ### TKINTER WINDOW & SETUP
 WINDOW = Tk()                   # Set WINDOW as tkinter command reference
-WINDOW.title("Team Generator")  # Set title name
+WINDOW.title("Team Generator - {}{}".format(VerType,Version)) # This changes the title  # Set title name
 MAXSIZE = WINDOW.maxsize()      # MAXSIZE var = screen size (usually "1920x1080")
 print("Screen Resolution:", MAXSIZE) # Print MAXSIZE var
 WINDOW.resizable(False, False)  # Disable window resizing
