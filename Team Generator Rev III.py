@@ -1,5 +1,5 @@
 from tkinter import *  # This imports the module that creates the interface
-import random  # This imports the needed modules
+import random  # This imports the pseudo random module
 from tkinter import filedialog  # Import file explorer functionality
 VerType = "[Rev. III] "
 Version = "[V0.3]"
