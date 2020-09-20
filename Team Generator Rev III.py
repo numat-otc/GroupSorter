@@ -8,7 +8,7 @@ Version = "[V0.3]"
 
 def MainPage():
     global AddNameEntry
-    global AddButton
+    global AddPlayerButton
     global NameList
     global RecentTotalSorts
 
@@ -16,7 +16,7 @@ def MainPage():
     AddNameEntry.focus()
 
     WINDOW.bind("<Return>", lambda event: AddNameEnter(AddNameEntry.get("1.0", "end")))
-    AddButton = Button(WINDOW, text="Add", font=(TkFont, 30), bg=TkBack2, fg="hot pink", bd=0, width=12,command=lambda: AddName(AddNameEntry.get("1.0", "end"))); AddButton.place(relx=0.02, rely=0.88, anchor=W)
+    AddPlayerButton = Button(WINDOW, text="Add", font=(TkFont, 30), bg=TkBack2, fg="hot pink", bd=0, width=12,command=lambda: AddName(AddNameEntry.get("1.0", "end"))); AddPlayerButton.place(relx=0.02, rely=0.88, anchor=W)
     SortButton = Button(WINDOW, text="Sort", font=(TkFont, 35), bg=TkBack2, fg='steel blue', bd=0, width=15, command=SortTeams, height=2); SortButton.place(relx=0.18, rely=0.85, anchor=W)
     AddTeamButton = Button(WINDOW, text="+", font=(TkFont + "Bold", 45), bg=TkBack, fg="forest green", bd=0, width=3, command=CreateTeam, height=1, activeforeground="forest green", activebackground=TkBack); AddTeamButton.place(relx=0.4, rely=0.86, anchor=W)
     MinusTeamButton = Button(WINDOW, text="-", font=(TkFont + "Bold", 45), bg=TkBack, fg='orangered1', bd=0, width=3, command=DeleteTeam, height=1, activeforeground="orangered1", activebackground=TkBack); MinusTeamButton.place(relx=0.45, rely=0.8575, anchor=W)
@@ -26,6 +26,23 @@ def MainPage():
     Exit = Button(WINDOW, text="X", fg="red", width=3, height=1, font=(TkFont, 18), bg=TkBack, border=0, activeforeground=('dark red'), command=WINDOW.destroy); Exit.place(x=10, y=10, anchor=NW)
     Maximize = Button(WINDOW, text="☐", fg="black", width=3, height=1, font=(TkFont, 18), bg=TkBack, border=0, activeforeground=('black'), command=lambda: FullscreenToggle("event")); Maximize.place(x=61, y=10, anchor=NW)
 
+def FullscreenToggle(event):
+    global FullState
+    FullState = not FullState  # opposite bool
+    WINDOW.attributes("-fullscreen", FullState) # toggle fullscreen
+    SetToggleWindowXY(FullState=FullState)
+
+def SetToggleWindowXY(FullState):
+    global AddPlayerRelX; global SortPlayerRelX # Makes these vars available everywhere in code
+    if FullState is True:   # if maximized mode
+        AddPlayerRelX = 0.495
+        SortPlayerRelX = 0.505
+        ButtonBottom = 0.95
+        print("Fullscreen = True")
+    if FullState is False:  # if windowed mode
+        AddPlayerRelX = 0.49
+        SortPlayerRelX = 0.51
+        print("Fullscreen = False")
 
 def Export():
     savefile = filedialog.asksaveasfilename(initialdir="%username%/desktop", title="Select a File", filetypes=(("Text files", "*.txt"), ("all files", "*.")))
@@ -175,8 +192,8 @@ def DeleteTeam():
     AmtTeams -= 1
 
 
-def Initialise():
-    global WINDOW  # This makes the main window a global variable so that any function outside of Initialise can access and change it
+def INIT():
+    global WINDOW      # globalise these variables to any module within the program
     global TkBack
     global TkFore
     global TkFont
@@ -186,12 +203,13 @@ def Initialise():
     global NameList
     global HasSorted
     global TotalSorts
+    global FullState
 
-    TkBack = "grey11"
-    TkFore = "grey92"
-    TkFont = "Verdana®"
-    TkBack2 = "grey19"
-    TkFore2 = "grey85"
+    TkBack = "grey14"   #
+    TkFore = "grey92"   #
+    TkFont = "Verdana®" #
+    TkBack2 = "grey24"  #
+    TkFore2 = "grey85"  #
 
     WINDOW = Tk()  # This creats the initial window
     WINDOW.state("zoomed")  # This starts it in zoom mode
@@ -199,7 +217,10 @@ def Initialise():
     WINDOW.title("Team Generator - {}{}".format(VerType, Version))  # This changes the title
     WINDOW.iconbitmap(bitmap="Team Generator Logo.ico")
     MainPage()  # This actives the function that starts up the first page
-
+    WINDOW.bind("<F11>", FullscreenToggle)
+    WINDOW.bind("<Escape>", lambda event: WINDOW.destroy())
+#ButtonPressedColour = "Grey60"  # Button Pressed Colour
+    FullState = False
     AmtTeams = 0
     NameList = []
     HasSorted = False
@@ -209,4 +230,4 @@ def Initialise():
     WINDOW.mainloop()
 
 
-Initialise()  # Run Initialisation function once code fully loaded through
+INIT()  # Run Initialisation function once code fully loaded through
