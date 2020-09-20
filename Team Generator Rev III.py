@@ -205,11 +205,11 @@ def INIT():
     global TotalSorts
     global FullState
 
-    TkBack = "grey14"   #
-    TkFore = "grey92"   #
-    TkFont = "Verdana®" #
-    TkBack2 = "grey24"  #
-    TkFore2 = "grey85"  #
+    TkBack = "grey14"   # Tk Background variable
+    TkFore = "grey92"   # Tk Standard Text variable
+    TkFont = "Verdana®" # Tk Font variable
+    TkBack2 = "grey24"  # Tk Button background variable
+    TkFore2 = "grey85"  # SPARE Tk variable
 
     WINDOW = Tk()  # This creats the initial window
     WINDOW.state("zoomed")  # This starts it in zoom mode
