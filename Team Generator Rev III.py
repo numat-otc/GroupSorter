@@ -15,7 +15,7 @@ def MainPage():
     AddNameEntry = Text(WINDOW, width=14, font=(TkFont, 27), bg=TkBack2, fg=TkFore2, bd=0, height=1); AddNameEntry.place(relx=0.02, rely=0.8, anchor=W)
     AddNameEntry.focus()
 
-    WINDOW.bind("<Return>", lambda event: AddNameEnter(AddNameEntry.get("1.0", "end")))
+    WINDOW.bind("<KeyRelease-Return>", lambda e: AddNameEnter(AddNameEntry.get("1.0", "end")))
     AddPlayerButton = Button(WINDOW, text="Add", font=(TkFont, 30), bg=TkBack2, fg="darkviolet", bd=0, width=12,command=lambda: AddName(AddNameEntry.get("1.0", "end"))); AddPlayerButton.place(relx=0.02, rely=0.88, anchor=W)
     SortButton = Button(WINDOW, text="Sort", font=(TkFont, 35), bg=TkBack2, fg="cadetblue2", bd=0, width=15, command=SortTeams, height=2); SortButton.place(relx=0.18, rely=0.85, anchor=W)
     AddTeamButton = Button(WINDOW, text="+", font=(TkFont + "Bold", 45), bg=TkBack, fg="forest green", bd=0, width=3, command=CreateTeam, height=1, activeforeground="forest green", activebackground=TkBack); AddTeamButton.place(relx=0.4, rely=0.86, anchor=W)
@@ -25,7 +25,8 @@ def MainPage():
 
     Exit = Button(WINDOW, text="X", fg="red", width=3, height=1, font=(TkFont, 18), bg=TkBack, bd=0, activeforeground=("dark red"), command=WINDOW.destroy); Exit.place(x=10, y=10, anchor=NW)
     Maximize = Button(WINDOW, text="☐", fg="black", width=3, height=1, font=(TkFont, 18), bg=TkBack, bd=0, activeforeground=("black"), command=lambda: FullscreenToggle("event")); Maximize.place(x=61, y=10, anchor=NW)
-
+    w = Scrollbar (WINDOW,)
+    w.place(relx=0.1, rely=0.1, anchor=NW)
 def FullscreenToggle(event):
     global FullState
     FullState = not FullState  # opposite bool
@@ -82,11 +83,11 @@ def DropDownPlayerList():
     except:
         pass
     NamesShowing = 0
-    global PlayerVerticalCoordinates
-    PlayerVerticalCoordinates = []
+    global PlayerVerticalCoords
+    PlayerVerticalCoords = []
     AddTo = 0.06
     for i in range(len(NameList)):
-        PlayerVerticalCoordinates.append(0.1 + (i * AddTo))
+        PlayerVerticalCoords.append(0.1 + (i * AddTo))
         CreateName(i)
         NamesShowing += 1
 
@@ -97,10 +98,10 @@ def ClearDropDownPlayerList():
 
 
 def CreateName(i):
-    globals()["PlayerNameButton" + str(i)] = Button(WINDOW, text=(NameList[i] + "\n"), TkFont=(TkFont, 30), bg=TkBack, fg=TkFore, takefocus=False, activeforeground=TkFore2, activebackground=TkBack, bd=0, command=lambda: RemovePlayer(i), width=10, anchor=W, height=1)
-    globals()["PlayerNameButton" + str(i)].place(relx=0.02, rely=PlayerVerticalCoordinates[i], anchor=W)
-    globals()["PlayerNameButton" + str(i)].bind("<Enter>", lambda event: HighlightPlayerName(i))
-    globals()["PlayerNameButton" + str(i)].bind("<Leave>", lambda event: UnHighlightPlayerName(i))
+    globals()["PlayerNameButton" + str(i)] = Button(WINDOW, text=(NameList[i] + "\n"), font=(TkFont, 30), bg=TkBack, fg=TkFore, takefocus=False, activeforeground=TkFore2, activebackground=TkBack, bd=0, command=lambda: RemovePlayer(i), width=10, anchor=W, height=1)
+    globals()["PlayerNameButton" + str(i)].place(relx=0.02, rely=PlayerVerticalCoords[i], anchor=W)
+    globals()["PlayerNameButton" + str(i)].bind("<Enter>", lambda e: HighlightPlayerName(i))
+    globals()["PlayerNameButton" + str(i)].bind("<Leave>", lambda e: UnHighlightPlayerName(i))
 
 
 def RemovePlayer(i):
@@ -221,7 +222,7 @@ def INIT():
     WINDOW.geometry("1920x1080")     # Set window size to 720p (a good size for common 1080p monitors)
     MainPage()  # This actives the function that starts up the first page
     WINDOW.bind("<F11>", FullscreenToggle)
-    WINDOW.bind("<Escape>", lambda event: WINDOW.destroy())
+    WINDOW.bind("<Escape>", lambda e: WINDOW.destroy())
     FullState = False
     AmtTeams = 0
     NameList = []
