@@ -16,7 +16,7 @@ def MainPage():
     AddNameEntry.focus()
 
     WINDOW.bind("<Return>", lambda event: AddNameEnter(AddNameEntry.get("1.0", "end")))
-    AddPlayerButton = Button(WINDOW, text="Add", font=(TkFont, 30), bg=TkBack2, fg="mediumpurple3", bd=0, width=12,command=lambda: AddName(AddNameEntry.get("1.0", "end"))); AddPlayerButton.place(relx=0.02, rely=0.88, anchor=W)
+    AddPlayerButton = Button(WINDOW, text="Add", font=(TkFont, 30), bg=TkBack2, fg="darkviolet", bd=0, width=12,command=lambda: AddName(AddNameEntry.get("1.0", "end"))); AddPlayerButton.place(relx=0.02, rely=0.88, anchor=W)
     SortButton = Button(WINDOW, text="Sort", font=(TkFont, 35), bg=TkBack2, fg="cadetblue2", bd=0, width=15, command=SortTeams, height=2); SortButton.place(relx=0.18, rely=0.85, anchor=W)
     AddTeamButton = Button(WINDOW, text="+", font=(TkFont + "Bold", 45), bg=TkBack, fg="forest green", bd=0, width=3, command=CreateTeam, height=1, activeforeground="forest green", activebackground=TkBack); AddTeamButton.place(relx=0.4, rely=0.86, anchor=W)
     MinusTeamButton = Button(WINDOW, text="-", font=(TkFont + "Bold", 45), bg=TkBack, fg="orangered2", bd=0, width=3, command=DeleteTeam, height=1, activeforeground="orangered1", activebackground=TkBack); MinusTeamButton.place(relx=0.45, rely=0.8575, anchor=W)
@@ -212,11 +212,13 @@ def INIT():
     TkFore2 = "grey85"  # SPARE Tk variable
 
     WINDOW = Tk()  # This creates the tkinter reference name
-    WINDOW.state("zoomed")  # This starts it in zoom mode
+    WINDOW.state("zoomed")  # This starts it in maximized mode
     WINDOW.config(bg=TkBack)  # This makes the background equal to the previously set up variable
     WINDOW.title("Team Generator - {}{}".format(VerType, Version))  # This changes the title
     WINDOW.iconbitmap(bitmap="Team Generator Logo.ico")
+    #DISABLED# WINDOW.overrideredirect(True) # Remove borders
     WINDOW.resizable(False, False)  # Disable window resizing
+    WINDOW.geometry("1920x1080")     # Set window size to 720p (a good size for common 1080p monitors)
     MainPage()  # This actives the function that starts up the first page
     WINDOW.bind("<F11>", FullscreenToggle)
     WINDOW.bind("<Escape>", lambda event: WINDOW.destroy())
