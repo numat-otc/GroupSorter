@@ -16,15 +16,15 @@ def MainPage():
     AddNameEntry.focus()
 
     WINDOW.bind("<Return>", lambda event: AddNameEnter(AddNameEntry.get("1.0", "end")))
-    AddPlayerButton = Button(WINDOW, text="Add", font=(TkFont, 30), bg=TkBack2, fg="hot pink", bd=0, width=12,command=lambda: AddName(AddNameEntry.get("1.0", "end"))); AddPlayerButton.place(relx=0.02, rely=0.88, anchor=W)
-    SortButton = Button(WINDOW, text="Sort", font=(TkFont, 35), bg=TkBack2, fg='steel blue', bd=0, width=15, command=SortTeams, height=2); SortButton.place(relx=0.18, rely=0.85, anchor=W)
+    AddPlayerButton = Button(WINDOW, text="Add", font=(TkFont, 30), bg=TkBack2, fg="mediumpurple3", bd=0, width=12,command=lambda: AddName(AddNameEntry.get("1.0", "end"))); AddPlayerButton.place(relx=0.02, rely=0.88, anchor=W)
+    SortButton = Button(WINDOW, text="Sort", font=(TkFont, 35), bg=TkBack2, fg="cadetblue2", bd=0, width=15, command=SortTeams, height=2); SortButton.place(relx=0.18, rely=0.85, anchor=W)
     AddTeamButton = Button(WINDOW, text="+", font=(TkFont + "Bold", 45), bg=TkBack, fg="forest green", bd=0, width=3, command=CreateTeam, height=1, activeforeground="forest green", activebackground=TkBack); AddTeamButton.place(relx=0.4, rely=0.86, anchor=W)
-    MinusTeamButton = Button(WINDOW, text="-", font=(TkFont + "Bold", 45), bg=TkBack, fg='orangered1', bd=0, width=3, command=DeleteTeam, height=1, activeforeground="orangered1", activebackground=TkBack); MinusTeamButton.place(relx=0.45, rely=0.8575, anchor=W)
+    MinusTeamButton = Button(WINDOW, text="-", font=(TkFont + "Bold", 45), bg=TkBack, fg="orangered2", bd=0, width=3, command=DeleteTeam, height=1, activeforeground="orangered1", activebackground=TkBack); MinusTeamButton.place(relx=0.45, rely=0.8575, anchor=W)
     RecentTotalSorts = Label(WINDOW, text="0 Recent TotalSorts", font=(TkFont, 30), bg=TkBack, fg=TkFore); RecentTotalSorts.place(relx=0.9, rely=0.88, anchor=CENTER)
-    ExportButton = Button(WINDOW, text="Export to .html", font=(TkFont, 24), bg=TkBack2, fg='yellow', bd=0, command=Export); ExportButton.place(relx=0.82, rely=0.79, anchor=NW)
+    ExportButton = Button(WINDOW, text="Export to .html", font=(TkFont, 24), bg=TkBack2, fg="yellow", bd=0, command=Export); ExportButton.place(relx=0.82, rely=0.79, anchor=NW)
 
-    Exit = Button(WINDOW, text="X", fg="red", width=3, height=1, font=(TkFont, 18), bg=TkBack, border=0, activeforeground=('dark red'), command=WINDOW.destroy); Exit.place(x=10, y=10, anchor=NW)
-    Maximize = Button(WINDOW, text="☐", fg="black", width=3, height=1, font=(TkFont, 18), bg=TkBack, border=0, activeforeground=('black'), command=lambda: FullscreenToggle("event")); Maximize.place(x=61, y=10, anchor=NW)
+    Exit = Button(WINDOW, text="X", fg="red", width=3, height=1, font=(TkFont, 18), bg=TkBack, bd=0, activeforeground=("dark red"), command=WINDOW.destroy); Exit.place(x=10, y=10, anchor=NW)
+    Maximize = Button(WINDOW, text="☐", fg="black", width=3, height=1, font=(TkFont, 18), bg=TkBack, bd=0, activeforeground=("black"), command=lambda: FullscreenToggle("event")); Maximize.place(x=61, y=10, anchor=NW)
 
 def FullscreenToggle(event):
     global FullState
@@ -179,7 +179,7 @@ def CreateTeam():
     for i in range(3):
         TeamVertical.append(0.2)
         TeamVertical.append(0.55)
-    globals()["TeamLabel" + str(AmtTeams)] = Label(WINDOW, text=(""), font=(TkFont, 30), bg=TkBack, fg=TkFore, width=18, height=7, anchor=N, bd=2, relief='groove')
+    globals()["TeamLabel" + str(AmtTeams)] = Label(WINDOW, text=(""), font=(TkFont, 30), bg=TkBack, fg=TkFore, width=18, height=7, anchor=N, bd=2, relief="groove")
     globals()["TeamLabel" + str(AmtTeams)].place(relx=TeamHorizontal[AmtTeams], rely=TeamVertical[AmtTeams], anchor=W)
     AmtTeams += 1
 
@@ -211,15 +211,15 @@ def INIT():
     TkBack2 = "grey24"  # Tk Button background variable
     TkFore2 = "grey85"  # SPARE Tk variable
 
-    WINDOW = Tk()  # This creats the initial window
+    WINDOW = Tk()  # This creates the tkinter reference name
     WINDOW.state("zoomed")  # This starts it in zoom mode
     WINDOW.config(bg=TkBack)  # This makes the background equal to the previously set up variable
     WINDOW.title("Team Generator - {}{}".format(VerType, Version))  # This changes the title
     WINDOW.iconbitmap(bitmap="Team Generator Logo.ico")
+    WINDOW.resizable(False, False)  # Disable window resizing
     MainPage()  # This actives the function that starts up the first page
     WINDOW.bind("<F11>", FullscreenToggle)
     WINDOW.bind("<Escape>", lambda event: WINDOW.destroy())
-#ButtonPressedColour = "Grey60"  # Button Pressed Colour
     FullState = False
     AmtTeams = 0
     NameList = []
