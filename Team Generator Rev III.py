@@ -15,7 +15,7 @@ def MainPage():
     AddNameEntry = Text(WINDOW, width=14, font=(TkFont, 27), bg=TkBack2, fg=TkFore2, bd=0, height=1); AddNameEntry.place(relx=0.02, rely=0.8, anchor=W)
     AddNameEntry.focus()
 
-    WINDOW.bind("<KeyRelease-Return>", lambda e: AddNameEnter(AddNameEntry.get("1.0", "end")))
+    WINDOW.bind("<Return>","<KeyRelease-Return>", lambda e: AddNameEnter(AddNameEntry.get("1.0", "end")))
     AddPlayerButton = Button(WINDOW, text="Add", font=(TkFont, 30), bg=TkBack2, fg="darkviolet", bd=0, width=12,command=lambda: AddName(AddNameEntry.get("1.0", "end"))); AddPlayerButton.place(relx=0.02, rely=0.88, anchor=W)
     SortButton = Button(WINDOW, text="Sort", font=(TkFont, 35), bg=TkBack2, fg="cadetblue2", bd=0, width=15, command=SortTeams, height=2); SortButton.place(relx=0.18, rely=0.85, anchor=W)
     AddTeamButton = Button(WINDOW, text="+", font=(TkFont + "Bold", 45), bg=TkBack, fg="forest green", bd=0, width=3, command=CreateTeam, height=1, activeforeground="forest green", activebackground=TkBack); AddTeamButton.place(relx=0.4, rely=0.86, anchor=W)
