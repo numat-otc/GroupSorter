@@ -11,7 +11,7 @@ ListYesKey = ["y", "ye", "yes", "yo", "yea", "ya"]
 LowerCaseAlphabet = list(string.ascii_lowercase)
 ListPlayers = []
 AlphabetFound = False
-
+##‽TREY‽NUMA‽##
 
 def TeamSort():
     # Set the window title bar name
