@@ -3,13 +3,14 @@ import time
 import random
 import string
 
-VerType = "[Rev. I] "
-Version = "[V1.3]"
-# Set the window title bar name
-os.system("title Team Generator {}{} - A project by Trey".format(VerType,Version))
-ListYesKey = ["y", "ye", "yes", "yo", "yea", "ya"]
-LowerCaseAlphabet = list(string.ascii_lowercase)
-ListPlayers = []
+
+#VerType = "[Rev. I] " ### Irrelevant information
+VerType =""
+Version = "[V1.4]" #Current Version (Ultimately displayed in window title bar to easily recognise different editions)
+os.system("title Team Generator {}{} - A project by Trey".format(VerType,Version)) # Set the window title bar name
+ListYesKey = ["y", "ye", "yes", "yo", "yea", "ya"] #Yes list, check if input is positive response
+LowerCaseAlphabet = list(string.ascii_lowercase) #Alphabet to reference input to in order to prevent invalid input
+ListPlayers = [] # Declare empty list of players
 AlphabetFound = False
 ##‽TREY‽NUMA‽##
 
@@ -168,25 +169,24 @@ while True:
 
         # Check if wanting to delete a single name
         elif "remove" in addplayer.lower() or "delete" in addplayer.lower():
-            # call remove player func
-            RemovePlayer(ListPlayers=ListPlayers, ListPlayersLOWER=ListPlayersLOWER)
+            RemovePlayer(ListPlayers=ListPlayers, ListPlayersLOWER=ListPlayersLOWER) # call remove player function
 
         # Check if name already exists
         elif ListPlayersLOWER.count(addplayer.lower()) != 0:
             print("Error; player already found")
             time.sleep(2)
 
-        # Fix unaccounted for printing mess ups
+        # Prevent unaccounted for printing mess ups
         elif len(addplayer) > 24:
             print("Please enter 24 or less characters.")
             time.sleep(2)
 
         # Disallow 'cancel' to be added to the player list
-        elif addplayer == "cancel":
+        elif addplayer.lower() == "cancel":
             print("Error; Cannot enter name cancel")
             time.sleep(2)
 
-        # Additional commands that aren't required or as useful
+        # Additional commands that aren't required or as useful, therefore not mentioned to the user
 
         # Delete last player name
         elif addplayer.lower() == "dellast":
