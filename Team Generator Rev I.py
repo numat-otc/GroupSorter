@@ -1,28 +1,26 @@
+#Imports
 import os
 import time
 import random
 import string
 
-
-#VerType = "[Rev. I] " ### Irrelevant information
+#Setup
 VerType =""
-Version = "[V1.4]" #Current Version (Ultimately displayed in window title bar to easily recognise different editions)
+Version = "[V1.4]" # Current Version (Displayed in window title bar to easily recognise different editions)
 os.system("title Team Generator {}{} - A project by Trey".format(VerType,Version)) # Set the window title bar name
-ListYesKey = ["y", "ye", "yes", "yo", "yea", "ya"] #Yes list, check if input is positive response
-LowerCaseAlphabet = list(string.ascii_lowercase) #Alphabet to reference input to in order to prevent invalid input
+ListYesKey = ["y", "ye", "yes", "yo", "yea", "ya"] # Yes list, check if input is positive response
+global LowerCaseAlphabet
+LowerCaseAlphabet = list(string.ascii_lowercase) # Alphabet to reference input to prevent invalid input
 ListPlayers = [] # Declare empty list of players
-AlphabetFound = False
 ##‽TREY‽NUMA‽##
 
-def TeamSort():
-    # Set the window title bar name
-    os.system("title Team Generator {}{} - Sorting {} players into teams".format(VerType,Version,len(ListPlayers)))
-    while True:
-        # Get amount of teams
-        print("> Type the number of teams you would like to sort {} people into ".format(len(ListPlayers)))
+def TeamSort():                                                                                                     # Sorting Function
+    os.system("title Team Generator {}{} - Sorting {} players into teams".format(VerType,Version,len(ListPlayers)))     # Change title
+    while True:                                                                                                         # While True:
+        print("> Type the number of teams you would like to sort {} people into ".format(len(ListPlayers)))                 # Get amount of teams
         print("> Type 'cancel' to go back to the main screen")
-        NumTeams = (input("|> "))
-        if NumTeams.lower() == "cancel" or NumTeams.lower() == "":
+        NumTeams = (input("|> "))                                                                                           # Input
+        if NumTeams.lower() == "cancel" or NumTeams.lower() == "" or LowerCaseAlphabet in NumTeams.lower():                                                          # If no input
             break
         # Account for errors
         try:
@@ -116,6 +114,15 @@ def RemovePlayer(ListPlayers, ListPlayersLOWER):
                 time.sleep(2)
                 break
 
+def DeleteEndOrStart(p,ListPlayers):
+    if len(ListPlayers) > 0:
+        ListPlayers.pop(p)
+        print("position deleted")
+        time.sleep(1) # Pause for 1 second
+    else:
+        print("Unable to delete first position")
+        time.sleep(1) # Pause for 1 second
+
 
 # Forever Looping base UI
 while True:
@@ -144,6 +151,7 @@ while True:
     # Check to see if an actual name is input
     # (or at least english alphabet characters)
     # So that keeping track of names is easier, also avoid printing errors and such
+    AlphabetFound = False
     for i in range(0, 26):
         if LowerCaseAlphabet[i] in addplayer.lower():
             AlphabetFound = True
@@ -164,8 +172,7 @@ while True:
 
         # Check if wanting to clear
         elif addplayer.lower() == "clear":
-            # reset list to nul
-            ListPlayers.clear()
+            ListPlayers.clear() # reset list to nul
 
         # Check if wanting to delete a single name
         elif "remove" in addplayer.lower() or "delete" in addplayer.lower():
@@ -174,54 +181,32 @@ while True:
         # Check if name already exists
         elif ListPlayersLOWER.count(addplayer.lower()) != 0:
             print("Error; player already found")
-            time.sleep(2)
+            time.sleep(1) # Pause for 1 second
 
         # Prevent unaccounted for printing mess ups
         elif len(addplayer) > 24:
             print("Please enter 24 or less characters.")
-            time.sleep(2)
+            time.sleep(1) # Pause for 1 second
 
         # Disallow 'cancel' to be added to the player list
         elif addplayer.lower() == "cancel":
             print("Error; Cannot enter name cancel")
-            time.sleep(2)
+            time.sleep(1) # Pause for 1 second
 
-        # Additional commands that aren't required or as useful, therefore not mentioned to the user
+        ### Additional commands that aren't required or as useful, therefore not mentioned to the user
 
         # Delete last player name
         elif addplayer.lower() == "dellast":
-            if len(ListPlayers) > 0:
-                ListPlayers.pop(-1)
-                print("Last position deleted")
-                time.sleep(1)
-            else:
-                print("Unable to delete last position")
-                time.sleep(1)
+            DeleteEndOrStart(p=-1,ListPlayers=ListPlayers)
 
+        # Delete first player name
         elif addplayer.lower() == "delfirst":
-            if len(ListPlayers) > 0:
-                ListPlayers.pop(0)
-                print("First position deleted")
-                time.sleep(1)
-            else:
-                print("Unable to delete first position")
-                time.sleep(1)
-        elif "preset" in addplayer.lower():
-            ADDPRESET = ["1", "2", "3", "4", "5",
-                         "6", "7", "8", "9", "10",
-                         "11","12", "13", "14", "15"]
-            ListPlayers.extend(ADDPRESET)
-        elif addplayer.lower() == "shutdown":
-            os.system('shutdown /sg /c "Your computer will shutdown in 10 seconds" /t 10')
-            print("Your computer will shutdown in 10 seconds")
-            time.sleep(9)
+            DeleteEndOrStart(p=0,ListPlayers=ListPlayers)
 
-        # otherwise...
-        else:
-            # add addplayer input to player list
-            ListPlayers.append(addplayer)
-    # If no english characters present in input
-    else:
+        else: # Else (if input is not a command)
+            ListPlayers.append(addplayer) # add addplayer userinput to the player list
+
+    else: # Else (If no english characters present in input)
         print("Please use at least one character from the English alphabet.")
         time.sleep(2)
 
