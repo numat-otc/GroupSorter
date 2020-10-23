@@ -24,8 +24,7 @@ IllegalInput = ["\\n", "back", "cancel"]
 
 # Automatic loading and saving of names upon opening and closing program
 def AutoLoad():
-    AutoSaveTXT = open(r"C:\Users\{}\AppData\Roaming\GroupSorter\Latest.txt".format(os.getlogin()),
-                       "r")  # Set document to read and save ListPlayers
+    AutoSaveTXT = open(r"C:\Users\{}\AppData\Roaming\GroupSorter\Latest.txt".format(os.getlogin()),"r")  # Set document to read and save ListPlayers
     FileRead = AutoSaveTXT.readlines()
     TXTLines = len(FileRead)
     if len(FileRead) > 1:  # Fix errors when 2 or more names are saved with a "\n"
@@ -43,8 +42,7 @@ def AutoLoad():
 
 
 def AutoSave():
-    AutoSaveTXT = open(r"C:\Users\{}\AppData\Roaming\GroupSorter\Latest.txt".format(os.getlogin()),
-                       "w")  # Set document to read and replace with ListPlayers (even if either are empty)
+    AutoSaveTXT = open(r"C:\Users\{}\AppData\Roaming\GroupSorter\Latest.txt".format(os.getlogin()),"w")  # Set document to read and replace with ListPlayers (even if either are empty)
     for i in range(0, len(ListPlayers)):
         if i == len(ListPlayers) - 1:
             AddLine = str(ListPlayers[i])
