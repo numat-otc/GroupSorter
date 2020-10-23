@@ -13,13 +13,12 @@ ListYesKey = ["y", "ye", "yes", "yo", "yea", "ya"]  # Yes list, check if input i
 
 global LowerCaseAlphabet  # Make LowerCaseAlphabet accessible anywhere in the code
 global timeout  # Make timeout accessible anywhere in the code
-global AutoSaveTXT  # Make AutoSaveTXT accessible anywhere in the code
 global ListPlayers  # Make ListPlayers accessible anywhere in the code
 
-LowerCaseAlphabet = list(string.ascii_lowercase)  # Alphabet to reference input to prevent invalid input
+LowerCaseAlphabet = list(string.ascii_lowercase)  # lowercase alphabet to reference input to, to prevent invalid input
 timeout = 1  # The timeout value (in seconds) for when a pause is called
 ListPlayers = []  # Declare empty list of players
-IllegalInput = ["\\n", "back", "cancel"]
+IllegalInput = ["\\n", "back", "cancel","\\"] # Values that the user cannot add to ListPlayers
 
 
 # Automatic loading and saving of names upon opening and closing program
@@ -70,8 +69,7 @@ def TimeOutLong():  # When code calls a longer pause
 
 
 def TeamSort():  # Sorting Function
-    os.system("title Group Sorter {}{} - Sorting {} players into groups".format(VerType, Version,
-                                                                                len(ListPlayers)))  # Change title
+    os.system("title Group Sorter {}{} - Sorting {} players into groups".format(VerType,Version,len(ListPlayers)))  # Change title
     while True:  # While True:
         print("> Type the number of groups you would like to sort {} people into ".format(
             len(ListPlayers)))  # Get amount of teams
@@ -107,9 +105,8 @@ def TeamSort():  # Sorting Function
                 TimeOutNormal()
                 break
 
-            # SORTING ALGORITHM 2.0
-            os.system("title Group Sorter {}{} - Sorting...".format(VerType,
-                                                                    Version))  # say sorting, user will only see if the sorting is taking extra long
+            # SORTING ALGORITHM
+            os.system("title Group Sorter {}{} - Sorting...".format(VerType,Version))  # say sorting, user will only see if the sorting is taking extra long
             NameToTeamList = []
             AmtPerTeam = (len(ListPlayers) // NumTeams)
             Remainder = (len(ListPlayers) - AmtPerTeam * NumTeams)
@@ -127,8 +124,7 @@ def TeamSort():  # Sorting Function
 
             # Display Teams and corresponding players
             os.system(
-                "title Group Sorter {}{} - Sorted {} players into {} groups".format(VerType, Version, len(ListPlayers),
-                                                                                    NumTeams))
+                "title Group Sorter {}{} - Sorted {} players into {} groups".format(VerType, Version, len(ListPlayers),NumTeams))
             os.system('cls')
             for i in range(0, NumTeams):
                 print("_" * 8)
