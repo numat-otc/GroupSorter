@@ -153,13 +153,12 @@ def RemovePlayer(ListPlayersLOWER):
     for i in range(0, len(ListPlayers)):
         print("{}- {}".format(i + 1, ListPlayers[i]))
     print("_" * 8)
-
     # Which name or name order number would you like to delete sequence
     print("> Type the number that corresponds to the player that you would you like to delete")
     print("> Type the name of the player that you would like to delete")
     print("> Type 'cancel' to go back to the main screen")
     delete = (input("|> "))
-    if (delete.lower() == "cancel" or delete.lower() == "back" or delete.lower() == ""):
+    if (delete.lower() == "cancel" or delete.lower() == "back" or delete.lower() == "exit" or delete.lower() == ""):
         pass
     elif delete.lower() in ListPlayersLOWER:
         for i in range(0, len(ListPlayers)):
@@ -222,16 +221,19 @@ while True:
     for i in range(0, 26):
         if LowerCaseAlphabet[i] in addplayer.lower():
             AlphabetFound = True
+    # Check if input is invalid (to avoid errors)
+    IllegalInputFound = False
+    for i in range(0, len(IllegalInput)):
+        if IllegalInput[i] in addplayer.lower():
+            print("Error; illegal input found")
+            AlphabetFound = True
+            IllegalInputFound = True
+            TimeOutNormal()
+            break
     # if name input is valid:
-    if AlphabetFound is True:
+    if AlphabetFound is True and IllegalInputFound is False:
         AlphabetFound = False  # Reset variable
         ListPlayersLOWER = list(map(lambda x: x.lower(), ListPlayers))  # Get a more convenient lowercase copy of input
-
-        # Check if input is invalid (to avoid errors)
-        for i in range(0, len(IllegalInput)):
-            if IllegalInput[i] in addplayer.lower():
-                print("Error; illegal input found")
-                TimeOutNormal()
 
         # Check if wanting to sort
         if addplayer.lower() == "sort":
@@ -277,7 +279,8 @@ while True:
             ListPlayers.append(addplayer)  # add addplayer userinput to the player list
 
     else:  # Else (If no english characters present in input)
-        print("Error; Please use at least one character from the English alphabet.")
-        TimeOutNormal()
+        if IllegalInputFound is False:
+            print("Error; Please use at least one character from the English alphabet.")
+            TimeOutNormal()
 
 # Return to start of While True statement
