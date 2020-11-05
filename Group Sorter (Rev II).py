@@ -22,7 +22,7 @@ timeout = 1  # The timeout value (in seconds) for when a pause is called
 ListPlayers = []  # Declare empty list of players
 GoBackList = ["back","return","escape","cancel"]
 IllegalInput = ["\\n","back","back","return","escape","cancel","\\","/","all"] # Values that the user cannot add to ListPlayers
-Themes=["Classic","Dark","Light","Yellow","Blue","Red","Green","Light Blue"]
+Themes=["Classic","Dark","Light","Yellow","Blue","Red","Green","LightBlue"]
 ThemesCode=["07","0F","F0","06","01","04","02","09"]
 ##‽TREY‽NUMA‽##
 
