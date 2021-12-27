@@ -54,8 +54,7 @@ def Settings(): # Settings Menu Function
                 SettingsInput=int(SettingsInput)
                 break
             except:
-                if SettingsInput.lower() in GoBackList:
-                    return
+                if SettingsInput.lower() in GoBackList: return
                 print("Error; invalid input.")
                 TimeOutNormal()
         if SettingsInput == 1: # Change theme
