@@ -56,7 +56,7 @@ def Settings(): # Settings Menu Function
             except:
                 if SettingsInput.lower() in GoBackList: return
                 print("Error; invalid input.")
-                TimeOutNormal()
+                TimeOut()
         if SettingsInput == 1: # Change theme
             while True: # Loop until valid value received or cancelled
                 os.system("cls")
@@ -76,14 +76,14 @@ def Settings(): # Settings Menu Function
                     if SettingsInput.lower() in GoBackList:
                         break
                     print("Error; invalid input.")
-                    TimeOutNormal()
+                    TimeOut()
                 if SettingsInput > 0 and SettingsInput < len(Themes)+1:
                     os.system("color {}".format(ThemesCode[SettingsInput-1]))
                     Theme =str(Themes[SettingsInput-1]+" Mode")
                     break
                 else:
                     print("Error; invalid input.")
-                    TimeOutNormal()
+                    TimeOut()
 
         elif SettingsInput == 2: # Toggle autosave
             while True: # Loop until valid value received or cancelled
@@ -104,7 +104,7 @@ def Settings(): # Settings Menu Function
                     if SettingsInput.lower() in GoBackList:
                         break
                     print("Error; invalid input.")
-                    TimeOutNormal()
+                    TimeOut()
                 if SettingsInput ==1:
                     AutoSaveBool = True
                     break
@@ -113,7 +113,7 @@ def Settings(): # Settings Menu Function
                     break
                 else:
                     print("Error; invalid input.")
-                    TimeOutNormal()
+                    TimeOut()
 
 
 
@@ -202,7 +202,7 @@ def AutoSave(): # Automatic saving of names and settings upon calling (when an u
     SettingsTXT.close() # Close file (avoid association with text file after it is finished with)
 
 
-def TimeOutNormal():  # Normal Pause (Cleans up code and allows continuity between all normal length pauses)
+def TimeOut():  # Normal Pause (Cleans up code and allows continuity between all normal length pauses)
     time.sleep(timeout)
 
 
@@ -225,7 +225,7 @@ def GroupSort(): # Sorting Function
                 break
         if AlphabetFound == True: # find error if
             print("Error; invalid input, only integers allowed")
-            TimeOutNormal()
+            TimeOut()
             return
         try: # Account for errors
             # Try to make NumGroups an integer
@@ -241,7 +241,7 @@ def GroupSort(): # Sorting Function
                     print("Error; Cannot sort into 1 group.")
                 else:
                     print("Error; Cannot sort into {} groups.".format(NumGroups))
-                TimeOutNormal()
+                TimeOut()
                 return
 
             # SORTING ALGORITHM
@@ -279,7 +279,7 @@ def GroupSort(): # Sorting Function
         # Error if integer not given
         except ValueError:
             print("Error; Please enter a valid number (e.g. '{}')".format(random.randint(2, 7)))
-            TimeOutNormal()
+            TimeOut()
             return
 
 
@@ -313,12 +313,12 @@ def RemovePlayer(ListPlayersLOWER): # Removing a player function
                     ListPlayers.pop(delete - 1)
                 else:
                     print("Error; name {} does not exist.".format(delete))
-                    TimeOutNormal()
+                    TimeOut()
                 break
             # if input is not valid in either way
             except ValueError:
                 print("Error; invalid input.")
-                TimeOutNormal()
+                TimeOut()
                 break
 
 
@@ -326,10 +326,10 @@ def DeleteEndOrStart(p): # Delete last or first position (from hidden command)
     if len(ListPlayers) > 0:
         ListPlayers.pop(p)
         print("position deleted")
-        TimeOutNormal()
+        TimeOut()
     else:
         print("Error; Unable to delete position")
-        TimeOutNormal()
+        TimeOut()
 
 
 AutoLoad() # Startup load settings and ListPlayers
@@ -369,7 +369,7 @@ while True: # Forever looping program
             print("Error; illegal input found")
             AlphabetFound = True
             IllegalInputFound = True
-            TimeOutNormal()
+            TimeOut()
             break
     # if name input is valid:
     if AlphabetFound is True and IllegalInputFound is False:
@@ -382,7 +382,7 @@ while True: # Forever looping program
                 GroupSort()  # call sorting function
             else:
                 print("Error; There are not enough players to sort.")
-                TimeOutNormal()
+                TimeOut()
 
         # Check if wanting to change settings
         elif addplayer.lower() =="settings" or addplayer.lower() =="options":
@@ -399,12 +399,12 @@ while True: # Forever looping program
         # Check if name already exists
         elif ListPlayersLOWER.count(addplayer.lower()) != 0:
             print("Error; player already found")
-            TimeOutNormal()
+            TimeOut()
 
         # Require name input to be between 3-24 characters
         elif len(addplayer) < 3 or len(addplayer) > 24:
             print("Error; Please enter between 2 and 24 characters.")
-            TimeOutNormal()
+            TimeOut()
 
         ### Additional commands that aren't required or as useful, therefore not mentioned to the user
 
@@ -426,6 +426,6 @@ while True: # Forever looping program
     else:  # Else (If no english characters present in input)
         if IllegalInputFound is False:
             print("Error; Please use at least one character from the English alphabet.")
-            TimeOutNormal()
+            TimeOut()
 
 # Return to start of While True statement
