@@ -19,7 +19,7 @@ border = Label(bg=BG).place(height=922,width=3,relx=0.52,rely=0.5,anchor="center
 global names
 names=["test1","test2"]
 
-def Add():
+def Add(): # Add name to names list func
     adding=str(addinput.get())
     addinput.delete(0, "end")
     if len(adding) == 0:
@@ -36,27 +36,53 @@ def Add():
         RenderNames()
     else:
         print("Error; unable to add input to names")
+        os.system('''msg "%username%" Name '{}' already exists'''.format(adding))
 
-def ClearInput():
+def ClearInput(): # Clear name input func
     addinput.delete(0, "end")
     print("input cleared")
 
-def ClearList():
+def ClearList(): # Clear entire names list func
     names.clear()
     print("clear list")
 
-def RenderNames():
+def RenderNames(): # Render names onto screen from names list func
     try:
         for name in range(len(names)):
             globals()["name{}".format(name)].destroy()
-            print("destroyed {}".format(names[name]))
+            print("destroyed ({}):{}".format(name+1,names[name]))
     except:
         pass
     for name in range(len(names)):
-        globals()["name{}".format(name)] = Label(font=(FONT,"22"), text=names[name], fg=FG, bg=BaseBG,).place(anchor="w",relx=0.03,rely=(0.2+0.04*name))
-    (globals()["name{}".format(1)]).destroy()
+        globals()["name{}".format(name)] = Label(font=(FONT,"22"), text=names[name], fg=FG, bg=BaseBG,)
+        globals()["name{}".format(name)].place(anchor="w",relx=0.03,rely=(0.2+0.04*name))
 
-def Sort():
+def ClearSort(): # Clear groups value input func
+    sortinput.delete(0, "end")
+    print("clear sort")
+
+def ClearGroups(): # Clear groups render func
+    print("clear groups")
+
+def EnterKey(): # Enter key event func
+    if addinput.get() != "":
+        Add()
+        print("[enter] ADD")
+    elif sortinput.get() != "":
+        Sort()
+        print("[enter] SORT")
+
+def EscapeKey(): # Escape key event func
+    if addinput.get() != "":
+        addinput.delete(0, "end")
+        print("[esc] CLEAR ADD")
+    elif sortinput.get() != "":
+        sortinput.delete(0, "end")
+        print("[esc] CLEAR SORT")
+    #elif  != "":
+        #print("[esc] CLEAR GROUPS")
+
+def Sort(): # Sort names list into groups func
     try:
         groups = int(sortinput.get())
         sortinput.delete(0, "end")
@@ -95,30 +121,7 @@ def Sort():
                 print(names[p])
     print("─" * 8)
 
-def ClearSort():
-    sortinput.delete(0, "end")
-    print("clear sort")
 
-def ClearGroups():
-    print("clear groups")
-
-def EnterKey():
-    if addinput.get() != "":
-        Add()
-        print("[enter] ADD")
-    elif sortinput.get() != "":
-        Sort()
-        print("[enter] SORT")
-
-def EscapeKey():
-    if addinput.get() != "":
-        addinput.delete(0, "end")
-        print("[esc] CLEAR ADD")
-    elif sortinput.get() != "":
-        sortinput.delete(0, "end")
-        print("[esc] CLEAR SORT")
-    #elif  != "":
-        #print("[esc] CLEAR GROUPS")
 
 
 # LEFT SECTION
@@ -142,4 +145,6 @@ root.bind('<Return>', lambda event:EnterKey()) # ENTER key functionality
 root.bind('<Escape>', lambda event:EscapeKey()) # ESC key functionality
 
 RenderNames()
+
+
 root.mainloop() # end of tk
