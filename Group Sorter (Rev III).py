@@ -1,84 +1,145 @@
-from tkinter import *  # tkinter library
-import os
+from tkinter import *  # tkinter lib
+import random # random lib
+import os # windows cmd commands lib
 
 ### UI Theme Colours
-BaseBG      = "grey16"
-BG          = "grey30"
-FG          = "grey80"
-FONT        = "Calibri"
-
-
+BaseBG  = "grey16"
+BG      = "grey30"
+FG      = "grey80"
+FONT    = "Calibri"
+##‽TREY‽NUMA‽##
 
 root = Tk()
 root.title("Group Sorter [Rev. III]") # window title
 root.resizable(False, False) # disable window resizing
 root.geometry("720x960") # window size (3:4 aspect-ratio [3]x240,[4]x240)
 root.configure(bg=BaseBG) # background colour
-border = Label(bg=BG).place(height=922,width=3,relx=0.52,rely=0.5,anchor="center")
-
+border = Label(bg=BG).place(height=922,width=3,relx=0.52,rely=0.5,anchor="center") # (off) center line
 
 global names
-names=[]
+names=["test1","test2"]
 
 def Add():
-    adding=addinput.get()
+    adding=str(addinput.get())
     addinput.delete(0, "end")
     if len(adding) == 0:
         print("input empty")
         return
     elif len(adding) not in range(2,21):
         os.system('msg "%username%" Invalid input length, enter between 2-20')
-    elif len(names) >=30:
-        os.system('msg "%username%" Maximum names reached')
-    else:
+    elif len(names) >=24:
+        os.system('msg "%username%" Maximum names reached (24)')
+    elif adding not in names:
         names.append(adding)
         print("input added")
-        print(names)
+        print(len(names),names)
+        RenderNames()
+    else:
+        print("Error; unable to add input to names")
 
 def ClearInput():
     addinput.delete(0, "end")
     print("input cleared")
 
 def ClearList():
-    print("")
+    names.clear()
+    print("clear list")
+
+def RenderNames():
+    try:
+        for name in range(len(names)):
+            globals()["name{}".format(name)].destroy()
+            print("destroyed {}".format(names[name]))
+    except:
+        pass
+    for name in range(len(names)):
+        globals()["name{}".format(name)] = Label(font=(FONT,"22"), text=names[name], fg=FG, bg=BaseBG,).place(anchor="w",relx=0.03,rely=(0.2+0.04*name))
+    (globals()["name{}".format(1)]).destroy()
 
 def Sort():
-    print("sort TBD")
+    try:
+        groups = int(sortinput.get())
+        sortinput.delete(0, "end")
+    except:
+        sortinput.delete(0, "end")
+        print("groups input not int")
+        os.system('msg "%username%" Please enter a valid integer')
+        return
+    if groups > len(names):
+        os.system('msg "%username%" Groups is greater than amount of names')
+        print("groups > list")
+        return
+    print("sort",groups)
+
+    NameToGroupList = []  # Clear list
+    AmtPerGroup = (len(names) // groups)
+    Remainder = (len(names) - AmtPerGroup * groups)
+    # Add sufficient base amounts of group numbers into NameToGroupList
+    for i in range(0, AmtPerGroup):
+        for z in range(0, groups):
+            NameToGroupList.append(z + 1)
+    # Add remaining amount of group numbers to NameToGroupList
+    for u in range(0, Remainder):
+        NameToGroupList.append(u + 1)
+
+    # Shuffle Groups list 10-50 times (just for added randomness)
+    for i in range(0, random.randint(10, 50)):
+        random.shuffle(NameToGroupList)
+
+    # Display groups and corresponding players
+    for i in range(0, groups):
+        print("─" * 8)
+        print("Group {}: ({})".format(i + 1, NameToGroupList.count(i + 1)))
+        for p in range(0, len(NameToGroupList)):
+            if NameToGroupList[p] == i + 1:
+                print(names[p])
+    print("─" * 8)
 
 def ClearSort():
-    print("clear sort TBD")
+    sortinput.delete(0, "end")
+    print("clear sort")
+
+def ClearGroups():
+    print("clear groups")
+
+def EnterKey():
+    if addinput.get() != "":
+        Add()
+        print("[enter] ADD")
+    elif sortinput.get() != "":
+        Sort()
+        print("[enter] SORT")
+
+def EscapeKey():
+    if addinput.get() != "":
+        addinput.delete(0, "end")
+        print("[esc] CLEAR ADD")
+    elif sortinput.get() != "":
+        sortinput.delete(0, "end")
+        print("[esc] CLEAR SORT")
+    #elif  != "":
+        #print("[esc] CLEAR GROUPS")
 
 
+# LEFT SECTION
+addinput          = Entry   (font=(FONT,"16"),fg=FG,bg=BG,bd=0); addinput.place(height=48,width=220,relx=0.01,rely=0.02,anchor="nw")
+addbutton         = Button  (font=(FONT,"14","bold"),text="Add",fg=FG,bg="forestgreen",bd=0,command=Add).place(height=48,width=60,relx=0.32,rely=0.02,anchor="nw")
+clearinputbutton  = Button  (font=(FONT,"14","bold"),text="Clear",fg=FG,bg="maroon",bd=0,command=ClearInput).place(height=48,width=60,relx=0.408,rely=0.02,anchor="nw")
 
-addinput            = Entry     (font=(FONT,"16"),fg=FG,bg=BG,bd=0); addinput.place(height=48,width=220,relx=0.01,rely=0.02,anchor="nw")
-addbutton           = Button    (font=(FONT,"14"),text="Add",fg=FG,bg="forestgreen",bd=0,command=Add).place(height=48,width=60,relx=0.32,rely=0.02,anchor="nw")
-clearbutton         = Button    (font=(FONT,"14"),text="Clear",fg=FG,bg="maroon",bd=0,command=ClearInput).place(height=48,width=60,relx=0.408,rely=0.02,anchor="nw")
+nameslabel        = Label   (font=(FONT,"14","bold"),text="Names:",fg=FG,bg=BG,bd=8).place(height=48,width=120,relx=0.01,rely=0.11,anchor="w")
+clearnamesbutton  = Button  (font=(FONT,"14","bold"),text="Clear",fg=FG,bg="maroon",bd=0,command=ClearList).place(height=48,width=72,relx=0.185,rely=0.11,anchor="w")
 
-nameslabel          = Label     (font=(FONT,"14"),text="Names:",fg=FG,bg=BG,bd=8).place(height=48,width=120,relx=0.01,rely=0.11,anchor="w")
-clearnamesbutton    = Button    (font=(FONT,"14"),text="Clear",fg=FG,bg="maroon",bd=0,command=ClearInput).place(height=48,width=72,relx=0.185,rely=0.11,anchor="w")
+# RIGHT SECTION
+sortinput         = Entry   (font=(FONT,"32"),justify="center",fg=FG,bg=BG,bd=0); sortinput.place(height=48,width=72,relx=0.55,rely=0.02,anchor="nw")
+sortbutton        = Button  (font=(FONT,"24","bold"),text="SORT",fg=FG,bg="blue4",bd=0,command=Sort).place(height=48,width=168,relx=0.6545,rely=0.02,anchor="nw")
+clearsortbutton   = Button  (font=(FONT,"14","bold"),text="Clear",fg=FG,bg="maroon",bd=0,command=ClearSort).place(height=48,width=60,relx=0.895,rely=0.02,anchor="nw")
 
-
-sortinput           = Entry     (font=(FONT,"32"),justify="center",fg=FG,bg=BG,bd=0); sortinput.place(height=48,width=72,relx=0.55,rely=0.02,anchor="nw")
-sortbutton          = Button    (font=(FONT,"24"),text="SORT",fg=FG,bg="blue4",bd=0,command=Sort).place(height=48,width=160,relx=0.66,rely=0.02,anchor="nw")
-clearbutton         = Button    (font=(FONT,"14"),text="Clear",fg=FG,bg="maroon",bd=0,command=ClearInput).place(height=48,width=60,relx=0.895,rely=0.02,anchor="nw")
-
-groupslabel         = Label     (font=(FONT,"14"),text="Groups:",fg=FG,bg=BG,bd=8).place(height=48,width=120,relx=0.55,rely=0.11,anchor="w")
-
-
-
+groupslabel       = Label   (font=(FONT,"14","bold"),text="Groups:",fg=FG,bg=BG,bd=8).place(height=48,width=120,relx=0.55,rely=0.11,anchor="w")
+cleargroupsbutton = Button  (font=(FONT,"14","bold"),text="Clear",fg=FG,bg="maroon",bd=0,command=ClearList).place(height=48,width=72,relx=0.725,rely=0.11,anchor="w")
 
 
-root.bind('<Return>', lambda event:Add()) # calculate when press ENTER
+root.bind('<Return>', lambda event:EnterKey()) # ENTER key functionality
+root.bind('<Escape>', lambda event:EscapeKey()) # ESC key functionality
 
-#####add_input           = Entry(); add_input.place(relx=0.5,rely=0.2,anchor="center")
-
-
-
-
-
-
-
-
-
-
-root.mainloop()
+RenderNames()
+root.mainloop() # end of tk
