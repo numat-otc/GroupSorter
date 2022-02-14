@@ -17,7 +17,7 @@ root.configure(bg=BaseBG) # background colour
 border = Label(bg=BG).place(height=922,width=3,relx=0.52,rely=0.5,anchor="center") # (off) center line
 
 global names
-names=["test1","test2"]
+names=[]
 
 def Add(): # Add name to names list func
     adding=str(addinput.get())
@@ -58,7 +58,7 @@ def RenderNames(): # Render names onto screen from names list func
         globals()["name{}".format(name)].place(anchor="w",relx=0.03,rely=(0.2+0.04*name))
 
 def ClearSort(): # Clear groups value input func
-    sortinput.delete(0, "end")
+    shuffleinput.delete(0, "end")
     print("clear sort")
 
 def ClearGroups(): # Clear groups render func
@@ -68,7 +68,7 @@ def EnterKey(): # Enter key event func
     if addinput.get() != "":
         Add()
         print("[enter] ADD")
-    elif sortinput.get() != "":
+    elif shuffleinput.get() != "":
         Sort()
         print("[enter] SORT")
 
@@ -76,18 +76,18 @@ def EscapeKey(): # Escape key event func
     if addinput.get() != "":
         addinput.delete(0, "end")
         print("[esc] CLEAR ADD")
-    elif sortinput.get() != "":
-        sortinput.delete(0, "end")
+    elif shuffleinput.get() != "":
+        shuffleinput.delete(0, "end")
         print("[esc] CLEAR SORT")
     #elif  != "":
         #print("[esc] CLEAR GROUPS")
 
 def Sort(): # Sort names list into groups func
     try:
-        groups = int(sortinput.get())
-        sortinput.delete(0, "end")
+        groups = int(shuffleinput.get())
+        shuffleinput.delete(0, "end")
     except:
-        sortinput.delete(0, "end")
+        shuffleinput.delete(0, "end")
         print("groups input not int")
         os.system('msg "%username%" Please enter a valid integer')
         return
@@ -133,8 +133,8 @@ nameslabel        = Label   (font=(FONT,"14","bold"),text="Names:",fg=FG,bg=BG,b
 clearnamesbutton  = Button  (font=(FONT,"14","bold"),text="Clear",fg=FG,bg="maroon",bd=0,command=ClearList).place(height=48,width=72,relx=0.185,rely=0.11,anchor="w")
 
 # RIGHT SECTION
-sortinput         = Entry   (font=(FONT,"32"),justify="center",fg=FG,bg=BG,bd=0); sortinput.place(height=48,width=72,relx=0.55,rely=0.02,anchor="nw")
-sortbutton        = Button  (font=(FONT,"24","bold"),text="SORT",fg=FG,bg="blue4",bd=0,command=Sort).place(height=48,width=168,relx=0.6545,rely=0.02,anchor="nw")
+shuffleinput      = Entry   (font=(FONT,"32"),justify="center",fg=FG,bg=BG,bd=0); shuffleinput.place(height=48,width=72,relx=0.55,rely=0.02,anchor="nw")
+shufflebutton     = Button  (font=(FONT,"24","bold"),text="SHUFFLE",fg=FG,bg="blue4",bd=0,command=Sort).place(height=48,width=168,relx=0.6545,rely=0.02,anchor="nw")
 clearsortbutton   = Button  (font=(FONT,"14","bold"),text="Clear",fg=FG,bg="maroon",bd=0,command=ClearSort).place(height=48,width=60,relx=0.895,rely=0.02,anchor="nw")
 
 groupslabel       = Label   (font=(FONT,"14","bold"),text="Groups:",fg=FG,bg=BG,bd=8).place(height=48,width=120,relx=0.55,rely=0.11,anchor="w")
