@@ -1,4 +1,5 @@
 from tkinter import *  # tkinter lib
+from tkinter import ttk  # tkinter lib
 import random # random lib
 import os # windows cmd commands lib
 
@@ -50,12 +51,16 @@ def RenderNames(): # Render names onto screen from names list func
     try:
         for name in range(len(names)):
             globals()["name{}".format(name)].destroy()
+            globals()["namedel{}".format(name)].destroy()
             print("destroyed ({}):{}".format(name+1,names[name]))
     except:
         pass
     for name in range(len(names)):
         globals()["name{}".format(name)] = Label(font=(FONT,"22"), text=names[name], fg=FG, bg=BaseBG,)
-        globals()["name{}".format(name)].place(anchor="w",relx=0.03,rely=(0.2+0.04*name))
+        globals()["name{}".format(name)].place(anchor="w",relx=0.075,rely=(0.2+0.04*name))
+
+        globals()["namedel{}".format(name)] = Button(font=(FONT,"18"), text=X, fg=FG, bg="maroon", bd=0, width=3, )
+        globals()["namedel{}".format(name)].place(anchor="w",relx=0.02,rely=(0.2+0.04*name))
 
 def ClearSort(): # Clear groups value input func
     shuffleinput.delete(0, "end")
