@@ -52,15 +52,19 @@ def RenderNames(): # Render names onto screen from names list func
         for name in range(len(names)):
             globals()["name{}".format(name)].destroy()
             globals()["namedel{}".format(name)].destroy()
+            nameslabel.destroy()
             print("destroyed ({}):{}".format(name+1,names[name]))
     except:
         pass
     for name in range(len(names)):
         globals()["name{}".format(name)] = Label(font=(FONT,"22"), text=names[name], fg=FG, bg=BaseBG,)
-        globals()["name{}".format(name)].place(anchor="w",relx=0.075,rely=(0.2+0.04*name))
+        globals()["name{}".format(name)].place(anchor="w",relx=0.075,rely=(0.2+0.05*name))
 
         globals()["namedel{}".format(name)] = Button(font=(FONT,"18"), text=X, fg=FG, bg="maroon", bd=0, width=3, )
-        globals()["namedel{}".format(name)].place(anchor="w",relx=0.02,rely=(0.2+0.04*name))
+        globals()["namedel{}".format(name)].place(anchor="w",relx=0.02,rely=(0.2+0.05*name))
+
+        nameslabel = Label(font=(FONT,"22"), text=names[name], fg=FG, bg=BaseBG,)
+        globals()["name{}".format(name)].place(anchor="w",relx=0.075,rely=(0.2+0.05*name))
 
 def ClearSort(): # Clear groups value input func
     shuffleinput.delete(0, "end")
@@ -106,25 +110,38 @@ def Sort(): # Sort names list into groups func
     AmtPerGroup = (len(names) // groups)
     Remainder = (len(names) - AmtPerGroup * groups)
     # Add sufficient base amounts of group numbers into NameToGroupList
-    for i in range(0, AmtPerGroup):
-        for z in range(0, groups):
+    for i in range(AmtPerGroup):
+        for z in range(groups):
             NameToGroupList.append(z + 1)
     # Add remaining amount of group numbers to NameToGroupList
-    for u in range(0, Remainder):
+    for u in range(Remainder):
         NameToGroupList.append(u + 1)
 
     # Shuffle Groups list 10-50 times (just for added randomness)
-    for i in range(0, random.randint(10, 50)):
+    for i in range(100000):
         random.shuffle(NameToGroupList)
 
-    # Display groups and corresponding players
-    for i in range(0, groups):
+    # Display groups and corresponding players in cmd
+    for i in range(groups):
         print("─" * 8)
         print("Group {}: ({})".format(i + 1, NameToGroupList.count(i + 1)))
         for p in range(0, len(NameToGroupList)):
             if NameToGroupList[p] == i + 1:
                 print(names[p])
     print("─" * 8)
+
+    try:
+        for name in range(groups):
+            globals()["group{}".format(groups)].destroy()
+            print("destroyed groups({}):{}".format(name+1,names[name]))
+    except:
+        pass
+    for name in range(len(names)):
+        globals()["name{}".format(name)] = Label(font=(FONT,"22"), text=names[name], fg=FG, bg=BaseBG,)
+        globals()["name{}".format(name)].place(anchor="w",relx=0.075,rely=(0.2+0.05*name))
+
+        globals()["namedel{}".format(name)] = Button(font=(FONT,"18"), text=X, fg=FG, bg="maroon", bd=0, width=3, )
+        globals()["namedel{}".format(name)].place(anchor="w",relx=0.02,rely=(0.2+0.05*name))
 
 
 
@@ -139,7 +156,7 @@ clearnamesbutton  = Button  (font=(FONT,"14","bold"),text="Clear",fg=FG,bg="maro
 
 # RIGHT SECTION
 shuffleinput      = Entry   (font=(FONT,"32"),justify="center",fg=FG,bg=BG,bd=0); shuffleinput.place(height=48,width=72,relx=0.55,rely=0.02,anchor="nw")
-shufflebutton     = Button  (font=(FONT,"24","bold"),text="SHUFFLE",fg=FG,bg="blue4",bd=0,command=Sort).place(height=48,width=168,relx=0.6545,rely=0.02,anchor="nw")
+shufflebutton     = Button  (font=(FONT,"24","bold"),text="SHUFFLE",fg=FG,bg="royalblue3",bd=0,command=Sort).place(height=48,width=168,relx=0.6545,rely=0.02,anchor="nw")
 clearsortbutton   = Button  (font=(FONT,"14","bold"),text="Clear",fg=FG,bg="maroon",bd=0,command=ClearSort).place(height=48,width=60,relx=0.895,rely=0.02,anchor="nw")
 
 groupslabel       = Label   (font=(FONT,"14","bold"),text="Groups:",fg=FG,bg=BG,bd=8).place(height=48,width=120,relx=0.55,rely=0.11,anchor="w")
